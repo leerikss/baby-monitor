@@ -1,0 +1,198 @@
+/* Always show scrollbars on large displays */
+
+@media screen and (min-width: 960px) {
+    html {
+        overflow-y: scroll;
+        overflow-x: scroll;
+    }
+}
+
+
+/* General */
+
+*:focus {
+    outline: none;
+}
+
+* {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -moz-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(0deg, rgba(60, 60, 60, 1) 0%, rgba(20, 20, 20, 1) 100%);
+}
+
+#content {
+    display: none;
+}
+
+video {
+    height: 100vh;
+    border: 1px solid black;
+    box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 1);
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    transition: height .5s, top .5s;
+}
+
+
+/* Login */
+
+#login {
+    position: fixed;
+    left: 20px;
+    top: 20px;
+    right: 20px;
+    max-width: 800px;
+    margin: auto;
+}
+
+input {
+    display: block;
+    box-sizing: border-box;
+    font-weight: bold;
+    font-size: 1em;
+    width: 100%;
+    height: 40px;
+    padding: 0px;
+    margin: 0px;
+}
+
+input[type=password] {
+    border: 3px solid #bbb;
+}
+
+input[type=submit] {
+    margin-top: 20px;
+    color: #333;
+    background: #fdfdfd;
+    background: linear-gradient(to bottom, #fdfdfd 0%, #bebebe 100%);
+    border: 3px solid #bbb;
+    border-radius: 10px;
+}
+
+
+/* Controls div */
+
+#controls {
+    display: none;
+    position: fixed;
+    width: 95%;
+    max-width: 800px;
+    top: 80px;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+.select {
+    display: block;
+    font-size: 16px;
+    font-family: sans-serif;
+    font-weight: 700;
+    color: #fff;
+    padding-left: 90px;
+    line-height: 3em;
+    width: 100%;
+    border: 1px solid #fff;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, .5);
+    border-radius: .5em;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: rgba(0, 0, 0, 0.7);
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23FFFFFF%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E');
+    background-repeat: no-repeat;
+    background-position: right 1em top 50%;
+    background-size: 2em auto;
+}
+
+.select-streams {
+    background-image: url('img/cctv-icon.png'), url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23FFFFFF%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E');
+    background-repeat: no-repeat, no-repeat;
+    background-position: left 1em top 50%, right 1em top 50%;
+    background-size: 3em auto, 2em auto;
+}
+
+
+/* Toggle buttons */
+
+.buttons {
+    background: rgba(0, 0, 0, .7);
+    padding: 5px;
+    width: 20px;
+    border-radius: 5px;
+    border: 1px solid white;
+    box-shadow: 1px 1px rgba(0, 0, 0, .5);
+    cursor: pointer;
+}
+
+.spacer {
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+#toggleMenuBtn {
+    z-index: 20;
+    position: fixed;
+    bottom: 74px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+#bottomBtns {
+    z-index: 10;
+    position: fixed;
+    bottom: 70px;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+}
+
+
+/* Ripple effect */
+
+.ripple {
+    background-position: center;
+    transition: background 0.5s;
+}
+
+.ripple:hover {
+    background: #444444 radial-gradient(circle, transparent 1%, #444444 1%) center/15000%;
+}
+
+.ripple:active {
+    background-color: #BBBBBB;
+    background-size: 100%;
+    transition: background 0s;
+}
+
+
+/* Select song + play button area */
+
+#music {
+    display: none;
+    position: relative;
+}
+
+#togglePlaySongBtn {
+    cursor: pointer;
+    position: absolute;
+    width: 5em;
+    height: auto;
+    top: -0.9em;
+}
+
+
+/* Record button */
+
+#toggleRecordBtn {
+    cursor: pointer;
+    display: block;
+    margin: auto;
+}

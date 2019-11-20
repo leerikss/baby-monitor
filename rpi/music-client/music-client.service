@@ -1,0 +1,13 @@
+[Unit]
+Description=Music client service
+After=network.target
+
+[Service]
+User=pi
+WorkingDirectory=/opt/music-client
+ExecStart=/usr/bin/node music-client.js
+Restart=always
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target

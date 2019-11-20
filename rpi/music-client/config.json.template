@@ -1,0 +1,5 @@
+{
+    "ws_music_url": "$ws_url",
+    "token": "$token",
+    "music_path": "$songs_path"
+}

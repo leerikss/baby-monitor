@@ -1,0 +1,12 @@
+[Unit]
+Description=WebSocket Proxy service
+After=network.target
+
+[Service]
+WorkingDirectory=$repo/server/websocket-proxy
+ExecStart=/usr/bin/node app.js
+Restart=always
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target

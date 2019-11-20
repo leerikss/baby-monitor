@@ -1,0 +1,13 @@
+[Unit]
+Description=Speaker client service
+After=network.target
+
+[Service]
+User=pi
+WorkingDirectory=/opt/speaker-client
+ExecStart=/usr/bin/node speaker-client.js
+Restart=always
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target

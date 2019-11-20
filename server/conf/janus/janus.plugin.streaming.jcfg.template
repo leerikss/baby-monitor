@@ -1,0 +1,15 @@
+$name: {
+      type = "rtp"
+      id = $id
+      description = "$description"
+      video = true
+      videoport = $videoport
+      videopt = 96
+      videortpmap = "H264/90000"
+      videofmtp = "profile-level-id=42e01f;packetization-mode=1"
+      audio = true
+      audioport = $audioport
+      audiopt = 111
+      audiortpmap = "opus/48000/2"
+      pin = "$password"
+}

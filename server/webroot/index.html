@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <title>Baby Monitor</title>
+
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/webrtc-adapter/7.3.0/adapter.min.js"></script>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/janus.js"></script>
+    <script type="text/javascript" src="js/janus_player.js"></script>
+    <script type="text/javascript" src="js/music_player.js"></script>
+    <script type="text/javascript" src="js/broadcast_mic.js"></script>
+    <script type="text/javascript" src="js/ui.js"></script>
+
+</head>
+
+<body>
+
+    <form id="login" action="" method="POST">
+        <input type="password" id="token" name="password" autocomplete="on" autofocus />
+        <input type="submit" id="submit" value="Login" />
+    </form>
+
+    <div id="content">
+
+        <video id="video" autoplay playsinline></video>
+
+        <img class="buttons ripple" id="toggleMenuBtn" src="img/menu-icon.svg" />
+
+        <div id="controls">
+            <select id="streams" class="select select-streams"></select>
+            <br />
+            <div id="music">
+                <select id="songs" class="select"></select>
+                <img id="togglePlaySongBtn" src="img/song-play-icon.png" />
+            </div>
+            <img id="toggleRecordBtn" src="img/record-icon.png" />
+            <div id="bottomBtns">
+                <img class="buttons ripple" id="zoomInBtn" src="img/zoom-in.svg" />
+                <img class="buttons ripple" id="zoomOutBtn" src="img/zoom-out.svg" />
+                <span class="spacer">&nbsp;</span>
+                <img class="buttons ripple" id="togglePlayBtn" src="img/video-pause-icon.svg" />
+                <img class="buttons ripple" id="toggleMuteBtn" src="img/mute-off-icon.svg" />
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        $(document).ready(function() {
+
+            const protocol = window.location.protocol;
+            const hostname = window.location.hostname;
+            const wsp = (protocol === "https:") ? "wss:" : "ws:";
+
+            UI.init({
+
+                urls: {
+                    janus: protocol + "//" + hostname + ":8089/janus",
+                    music: wsp + "//" + hostname + "/music",
+                    speaker: wsp + "//" + hostname + "/speaker"
+                },
+
+                dom: {
+                    video: $("#video").get(0),
+                    streams: $("#streams").get(0)
+                }
+            });
+
+        });
+    </script>
+
+</body>
+
+</html>

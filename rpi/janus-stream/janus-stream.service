@@ -1,0 +1,12 @@
+[Unit]
+Description=Janus stream service
+After=network.target
+
+[Service]
+User=pi
+ExecStart=/opt/janus-stream/janus-stream.sh
+Restart=always
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target

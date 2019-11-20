@@ -1,0 +1,21 @@
+{
+    "name": "websocket-proxy",
+    "version": "1.0.0",
+    "description": "Proxies websocket message to all connected clients",
+    "main": "app.js",
+    "dependencies": {
+        "dotenv": "^8.2.0",
+        "ws": "^7.2.0"
+    },
+    "devDependencies": {},
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [
+        "nodejs",
+        "proxy",
+        "websocket"
+    ],
+    "author": "Leif Eriksson",
+    "license": "ISC"
+}

@@ -1,0 +1,4 @@
+{
+    "ws_audio_url": "$ws_url",
+    "token": "$token"
+}
