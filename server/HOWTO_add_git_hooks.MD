@@ -71,7 +71,7 @@ Local Linux dev env
 
 - Add the new remote production repo
 ```
-git remote add production ssh://git@yourserver.com:port/home/git/baby-monitor-git
+git remote add production ssh://git@yourserver.com:port/home/git/baby-monitor.git
 ```
 
 - Create post commit hook
