@@ -3,15 +3,15 @@
 set -a
 
 read -p "Install gstreamer libraries (y/N)?" libs
-read -p "Install RaspiWiFi (y/N)?" rwifi
-read -p "janus host? " jhost
-read -e -p "janus video port? " -i "5001" vport
-read -e -p "janus audio port? " -i "5002" aport
-read -e -p "gstreamer argument vflip? " -i "false" vflip
-read -e -p "gstreamer argument hflip? " -i "false" hflip
-read -e -p "gstreamer argument width? " -i "960" width
-read -e -p "gstreamer argument height? " -i "540" height
-read -e -p "gstreamer argument framerate? " -i "24" framerate
+read -p "Install headless WiFi configuration using RaspiWiFi (y/N)?" rwifi
+read -p "Domain name where your Janus WebRTC is installed? " jhost
+read -e -p "Janus configured video port? " -i "5001" vport
+read -e -p "Janus configured audio port? " -i "5002" aport
+read -e -p "Flip video vertically (false)? " -i "false" vflip
+read -e -p "Flip video horizontally (false)? " -i "false" hflip
+read -e -p "Video Width in px (960)? " -i "960" width
+read -e -p "Video height in px (540)? " -i "540" height
+read -e -p "Video framerate (24)? " -i "24" framerate
 
 # Install gstreamer + rpicamsrc
 function install_libs() {
