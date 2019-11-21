@@ -40,4 +40,3 @@ sudo systemctl stop music-client
 - A systemd service is created to automatically start the music-client upon RPI startup
 - Upon script failures, the music-client will automatically restart
 - Add mp3 files of your liking into /opt/music-client/songs
-- 
