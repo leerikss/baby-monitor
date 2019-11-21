@@ -10,6 +10,8 @@ read -p "Authentication token? " token
 
 function install_node() {
     curl -sL https://deb.nodesource.com/setup_10.x | sudo bash -
+    sudo apt-get install -y nodejs
+    sudo npm install npm --global
 }
 
 # Copy scripts
