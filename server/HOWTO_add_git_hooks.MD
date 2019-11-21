@@ -1,8 +1,8 @@
 git hooks
 =========
-'Some notes on how to add git hooks both to the server as well as in your local dev env, in order to 
-a) push code to your deployment server whenever you do a commit
-b) deploy the baby-monitor server app each time the server receives a push
+Some notes on howto add git hooks in order to
+a) push code to your personal production server whenever you do a commit
+b) deploy the baby-monitor server app on the production server each time the server receives a push
 
 Server
 ======
