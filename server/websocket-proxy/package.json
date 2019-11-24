@@ -1,7 +1,7 @@
 {
     "name": "websocket-proxy",
     "version": "1.0.0",
-    "description": "Proxies websocket message to all connected clients",
+    "description": "Proxies websocket messages to all connected clients",
     "main": "app.js",
     "dependencies": {
         "dotenv": "^8.2.0",
@@ -17,5 +17,9 @@
         "websocket"
     ],
     "author": "Leif Eriksson",
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:leerikss/baby-monitor.git"
+    },
     "license": "ISC"
 }
