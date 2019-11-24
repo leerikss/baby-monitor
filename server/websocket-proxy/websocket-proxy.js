@@ -58,7 +58,7 @@ module.exports = class WebSocketProxy {
             return false;
         }
 
-        const token = request.headers["Sec-WebSocket-Protocol"]
+        const token = request.headers["sec-websocket-protocol"]
         if (token !== this.config.token) {
             console.log("Unauthorized token: " + token + ". IP = " + ip);
             this.bannedIps[ip] = (bip === undefined) ? 1 : bip + 1;
