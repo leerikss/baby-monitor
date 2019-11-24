@@ -35,7 +35,7 @@ module.exports = class WebSocketProxy {
 
     initHttpServer(server) {
         const httpServer = http.createServer();
-        httpServer.on("upgrade", (request, socket) => {
+        httpServer.on("upgrade", (request, socket, head) => {
             if (!this.isAuthenticated(request) ||
                 // !this.isAllowedOrigin(request) ||
                 !this.isAllowedRole(request)) {
