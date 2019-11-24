@@ -26,8 +26,7 @@ musicPlayer = function() {
 
     function initWebSocket() {
 
-        socket = new WebSocket(config.url + "?token=" +
-            config.token + "&role=transmitter");
+        socket = new WebSocket(config.url + "?role=transmitter", config.token);
 
         socket.onopen = function(event) {
             console.log("WebSocket Connected!");

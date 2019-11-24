@@ -41,8 +41,7 @@ broadcastMic = function() {
 
     function initWebSocket() {
 
-        socket = new WebSocket(config.url + "?token=" +
-            config.token + "&role=transmitter");
+        socket = new WebSocket(config.url + "?role=transmitter", config.token);
 
         socket.onopen = event => {
             console.log("WebSocket Connected!");

@@ -35,8 +35,8 @@ module.exports = class WebSocketProxy {
 
     initHttpServer(server) {
         const httpServer = http.createServer();
-        httpServer.on("upgrade", (request, socket, head) => {
-            if (!this.isAuthenticated(request) ||
+        httpServer.on("upgrade", (request, socket) => {
+            if (!this.isAuthenticated(request, head) ||
                 // !this.isAllowedOrigin(request) ||
                 !this.isAllowedRole(request)) {
                 socket.destroy();
@@ -58,8 +58,8 @@ module.exports = class WebSocketProxy {
             return false;
         }
 
-        const parts = url.parse(request.url, true);
-        if (parts.query.token !== this.config.token) {
+        const token = request.headers["Sec-WebSocket-Protocol"]
+        if (token !== this.config.token) {
             console.log("Unauthorized token: " + parts.query.token + ". IP = " + ip);
             this.bannedIps[ip] = (bip === undefined) ? 1 : bip + 1;
             return false;
