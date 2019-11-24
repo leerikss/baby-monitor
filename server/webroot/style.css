@@ -192,8 +192,9 @@ input[type=submit] {
 /* Record button */
 
 #toggleRecordBtn {
-    margin-top: 20px;
+    margin-top: 50px;
     cursor: pointer;
     display: block;
-    margin: auto;
+    margin-left: auto;
+    margin-right: auto;    
 }
