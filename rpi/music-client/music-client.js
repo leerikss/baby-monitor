@@ -32,9 +32,7 @@ const MusicClient = function() {
 
         // Construct WebSocket
         configureWebSocket(
-            new WebSocket(config.ws_music_url +
-                "?token=" + config.token +
-                "&role=receiver"));
+            new WebSocket(config.ws_music_url + "?role=receiver", config.token));
     }
 
     function configureWebSocket(client) {

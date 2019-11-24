@@ -27,9 +27,7 @@ const SpeakerClient = function() {
 
         // Construct WebSocket
         configureWebSocket(
-            new WebSocket(config.ws_audio_url +
-                "?token=" + config.token +
-                "&role=receiver"));
+            new WebSocket(config.ws_audio_url + "?role=receiver", config.token));
     }
 
     function configureWebSocket(client) {
