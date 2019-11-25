@@ -119,11 +119,11 @@ function install_ws_proxy() {
 
 }
 
+install_node
+install_ws_proxy
 install_nginx
 install_certbot
 install_janus
 config_janus
-install_node
-install_ws_proxy
 
 set +a
