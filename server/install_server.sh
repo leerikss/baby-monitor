@@ -89,7 +89,7 @@ function config_janus() {
     sudo touch /opt/janus/etc/janus/janus.plugin.streaming.jcfg
     for ((id = 1; id <= $devices; id++)); do
         read -e -p "Streaming device [$id] name? " -i "RPI3" name
-        read -e -p "Streaming device [$id] description? " -i "$name streamer" description
+        read -e -p "Streaming device [$id] description? " -i "$name Stream" description
         read -e -p "Streaming device [$id] video port number? " -i 5001 videoport
         read -e -p "Streaming device [$id] audio port number? " -i 5002 audioport
         sudo -E sh -c 'envsubst < conf/janus/janus.plugin.streaming.jcfg.template >> /opt/janus/etc/janus/janus.plugin.streaming.jcfg'
