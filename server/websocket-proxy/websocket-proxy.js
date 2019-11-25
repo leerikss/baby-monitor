@@ -37,7 +37,7 @@ module.exports = class WebSocketProxy {
         const httpServer = http.createServer();
         httpServer.on("upgrade", (request, socket, head) => {
             if (!this.isAuthenticated(request) ||
-                // !this.isAllowedOrigin(request) ||
+                !this.isAllowedOrigin(request) ||
                 !this.isAllowedRole(request)) {
                 socket.destroy();
             } else
@@ -72,8 +72,12 @@ module.exports = class WebSocketProxy {
     }
 
     isAllowedOrigin(request) {
+
         const orig = request.headers.origin;
-        if (orig !== this.config.origin) {
+        const parts = url.parse(request.url, true);
+        const role = parts.query.role;
+
+        if (role === "transmitter" && orig !== this.config.origin) {
             console.error("Bad origin headers: " + orig);
             return false;
         }

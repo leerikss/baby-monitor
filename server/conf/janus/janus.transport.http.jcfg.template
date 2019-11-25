@@ -59,7 +59,7 @@ admin: {
 # what must be returned in 'Access-Control-Allow-Origin'. More details:
 # https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS
 cors: {
-	#allow_origin = "http://foo.example"
+	allow_origin = "https://$domain"
 }
 
 # Certificate and key to use for HTTPS, if enabled (and passphrase if needed).
