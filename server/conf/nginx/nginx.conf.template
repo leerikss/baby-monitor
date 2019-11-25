@@ -1,46 +1,33 @@
 server {
-
-       listen 80; 
-       listen	443 ssl;       
-       server_name $domain;
+    server_name $domain;
        
-       # certs
-       ssl_certificate /etc/letsencrypt/live/$domain/fullchain.pem; # managed by Certbot
-       ssl_certificate_key /etc/letsencrypt/live/$domain/privkey.pem;
+    # Music player websocket proxy
+    location /music {
+        proxy_pass http://localhost:8100;
+	    proxy_http_version 1.1;
+	    proxy_set_header Upgrade websocket;
+	    proxy_set_header Connection upgrade;
+	    proxy_set_header X-Real-IP $remote_addr;
+	    # timeout default=30 sec, increase to one day
+	    proxy_read_timeout 86400s;
+    }
 
-       # Redirect all non-SSL traffic to SSL.
-       if ($ssl_protocol = "") {
-           rewrite ^ https://$host$request_uri? permanent;
-       }
+    # Mic to speaker websocket proxy
+    location /speaker {
+        proxy_pass http://localhost:8200;
+	    proxy_http_version 1.1;
+	    proxy_set_header Upgrade websocket;
+	    proxy_set_header Connection upgrade;
+	    proxy_set_header X-Real-IP $remote_addr;
+	    # timeout default=30 sec, increase to one day
+	    proxy_read_timeout 86400s;
+    }
 
-       # Music player websocket proxy
-       location /music {
-              proxy_pass http://localhost:8100;
-	      proxy_http_version 1.1;
-	      proxy_set_header Upgrade websocket;
-	      proxy_set_header Connection upgrade;
-	      proxy_set_header X-Real-IP $remote_addr;
-	      # timeout default=30 sec, increase to one day
-	      proxy_read_timeout 86400s;
-       }
-
-       # Mic to speaker websocket proxy
-       location /speaker {
-              proxy_pass http://localhost:8200;
-	      proxy_http_version 1.1;
-	      proxy_set_header Upgrade websocket;
-	      proxy_set_header Connection upgrade;
-	      proxy_set_header X-Real-IP $remote_addr;
-	      # timeout default=30 sec, increase to one day
-	      proxy_read_timeout 86400s;
-       }
-
-       # Send everything else to a local webroot.
-       root $webroot;
-       index index.html index.htm;
+    # Send everything else to a local webroot.
+    root $webroot;
+    index index.html index.htm;
        
-       location / {
-       		try_files $uri $uri/ index.html;
-       }
-       
+    location / {
+        try_files $uri $uri/ index.html;
+    }       
 }

@@ -20,6 +20,7 @@ cd /opt/baby-monitor/server
 - Type a (hard enough) password
   - Will be the access token for viewing the WebRTC Video/Audo feed, as well as obtaining the WebSocket connections
 - The script will:
-  - Install nginx
-  - Configure nginx to proxy pass to local nodejs websocket proxy app
-
+  - Install nodejs, npm
+  - Install the websocket-proxy app and adds a websocket-proxy systemd service
+  - Installs and configures letsencrypt and nginx
+  - Installs and configures the Janus Server

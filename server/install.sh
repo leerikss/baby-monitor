@@ -46,8 +46,6 @@ function install_nginx() {
     webroot=$(sed_esc "$wwwhome")
     sudo sed -i -e "s/\$domain/$domain/" -e "s/\$webroot/$webroot/" "/etc/nginx/sites-available/$domain"
     sudo ln -s "/etc/nginx/sites-available/$domain" "/etc/nginx/sites-enabled/$domain"
-
-    sudo systemctl restart nginx
 }
 
 function install_certbot() {
@@ -55,6 +53,7 @@ function install_certbot() {
     sudo add-apt-repository ppa:certbot/certbot -y
     sudo apt install python-certbot-nginx
     sudo certbot --nginx -d "$domain" -d "$domain"
+    sudo systemctl restart nginx
 }
 
 function install_janus() {
