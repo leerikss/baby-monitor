@@ -12,6 +12,28 @@ function sed_esc() {
     echo $(sed -e 's/[&\\/]/\\&/g; s/$/\\/' -e '$s/\\$//' <<<"$1")
 }
 
+function install_node() {
+    curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+    sudo apt-get install -y nodejs
+    sudo npm install npm --global
+}
+
+function install_ws_proxy() {
+
+    sudo npm install --prefix "$repo/server/websocket-proxy" ws dotenv
+
+    sudo -E bash -c 'echo -e "PASSWORD=$password" > "$repo/server/websocket-proxy/.env"'
+    sudo -E bash -c 'echo -e "ORIGIN=https://$domain" >> "$repo/server/websocket-proxy/.env"'
+    sudo chmod 700 "$repo/server/websocket-proxy/.env"
+
+    # systemd script
+    sudo -E sh -c 'envsubst < "$repo/server/conf/systemd/websocket-proxy.service.template" \
+        > /etc/systemd/system/websocket-proxy.service'
+    sudo systemctl reenable websocket-proxy
+    sudo systemctl start websocket-proxy
+
+}
+
 function install_nginx() {
     sudo apt install nginx
 
@@ -33,11 +55,6 @@ function install_certbot() {
     sudo add-apt-repository ppa:certbot/certbot -y
     sudo apt install python-certbot-nginx
     sudo certbot --nginx -d "$domain" -d "$domain"
-}
-
-function install_node() {
-    curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
-    sudo apt-get install -y nodejs
 }
 
 function install_janus() {
@@ -100,23 +117,6 @@ function config_janus() {
     sudo cp $BASEDIR/conf/systemd/janus.service /etc/systemd/system
     sudo systemctl reenable janus
     sudo systemctl start janus
-}
-
-function install_ws_proxy() {
-
-    sudo npm install --prefix "$repo/server/websocket-proxy" ws
-    sudo npm install --prefix "$repo/server/websocket-proxy" dotenv
-
-    sudo -E bash -c 'echo -e "PASSWORD=$password" > "$repo/server/websocket-proxy/.env"'
-    sudo -E bash -c 'echo -e "ORIGIN=https://$domain" >> "$repo/server/websocket-proxy/.env"'
-    sudo chmod 700 "$repo/server/websocket-proxy/.env"
-
-    # systemd script
-    sudo -E sh -c 'envsubst < "$repo/server/conf/systemd/websocket-proxy.service.template" \
-        > /etc/systemd/system/websocket-proxy.service'
-    sudo systemctl reenable websocket-proxy
-    sudo systemctl start websocket-proxy
-
 }
 
 install_node
