@@ -2,8 +2,8 @@
 
 set -a
 
-read -p "Server Domain? " domain
-read -e -p "Where is the git repository? " -i "/opt/baby-monitor" repo
+read -p "Hostname? " domain
+read -e -p "Repository location? " -i "/opt/baby-monitor" repo
 read -e -p "Security password? " -i "changeit" password
 
 BASEDIR=$(pwd)
@@ -29,6 +29,7 @@ function install_nginx() {
 }
 
 function install_certbot() {
+    sudo apt-get install software-properties-common
     sudo add-apt-repository ppa:certbot/certbot -y
     sudo apt install python-certbot-nginx
     sudo certbot --nginx -d "$domain" -d "$domain"

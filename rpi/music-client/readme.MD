@@ -21,8 +21,8 @@ alsamixer
 
 # Installation
 ```console
-git clone git@github.com:leerikss/baby-monitor.git .
-cd rpi/music-client
+git clone git@github.com:leerikss/baby-monitor.git
+cd baby-monitor/rpi/music-client
 ./install.sh
 ```
 - First time you run the script, type y to install required nodejs/npm dependencies

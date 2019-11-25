@@ -42,8 +42,8 @@ alsamixer
 
 # Installation
 ```console
-git clone git@github.com:leerikss/baby-monitor.git .
-cd rpi/janus-stream
+git clone git@github.com:leerikss/baby-monitor.git
+cd baby-monitor/rpi/janus-stream
 ./install.sh
 ```
 - The installaction script will prompt for various parameters you need to know

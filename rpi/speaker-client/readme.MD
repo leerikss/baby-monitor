@@ -21,8 +21,8 @@ alsamixer
 
 # Installation
 ```console
-git clone git@github.com:leerikss/baby-monitor.git .
-cd rpi/speaker-client
+git clone git@github.com:leerikss/baby-monitor.git
+cd baby-monitor/rpi/speaker-client
 ./install.sh
 ```
 - First time you run the script, type y to install required nodejs/npm dependencies
