@@ -4,8 +4,8 @@ Installation on server
 I made a quick installation script to simplify the installation process of the server software on my VPS.
 
 # Prerequisites
-- A Debian based Linux Distro
-  - Tested only on Ubuntu 19.10
+- A Debian based Distro
+- NOTE: Tested only on Ubuntu 19.10
 - git configured to clone this repository from github
 
 # Installation

@@ -60,9 +60,9 @@ function install_janus() {
 
     # Libraries
     sudo apt install libmicrohttpd-dev libjansson-dev \
-        libssl-dev libsrtp-dev libsofia-sip-ua-dev libglib2.0-dev \
+        libssl-dev libsofia-sip-ua-dev libglib2.0-dev gtk-doc-tools \
         libopus-dev libogg-dev libcurl4-openssl-dev liblua5.3-dev \
-        libconfig-dev pkg-config gengetopt libtool automake
+        libconfig-dev pkg-config gengetopt libtool automake autoconf
 
     # libnice
     sudo rm -Rf /tmp/libnice
@@ -72,17 +72,18 @@ function install_janus() {
     ./configure --prefix=/usr
     make && sudo make install
 
-    # libsrtp2
-    rm -Rf /tmp/libsrtp-2.2.0
-    wget -O https://github.com/cisco/libsrtp/archive/v2.2.0.tar.gz /tmp/v2.2.0.tar.gz
-    tar xfv /tmp/v2.2.0.tar.gz
-    cd /tmp/libsrtp-2.2.0
+    # libsrtp2                                                                                                                                                                                                     
+    cd /tmp
+    rm -Rf libsrtp-2.2.0
+    wget https://github.com/cisco/libsrtp/archive/v2.2.0.tar.gz
+    tar xfv v2.2.0.tar.gz
+    cd libsrtp-2.2.0
     ./configure --prefix=/usr --enable-openssl --libdir=/usr/lib64
     make shared_library && sudo make install
-    # Permanent path /usr/lib64 libsrtp2 libs
+    # Permanent path /usr/lib64 libsrtp2 libs                                                                                                                                                                      
     sudo cp $BASEDIR/conf/ld.so.conf.d/libsrtp2.conf /etc/ld.so.conf.d/libsrtp2.conf
     sudo ldconfig
-
+    
     # Janus
     sudo rm -Rf /opt/janus
     sudo rm -Rf /tmp/janus-gateway
