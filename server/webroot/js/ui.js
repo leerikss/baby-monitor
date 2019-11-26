@@ -11,7 +11,7 @@ const UI = function() {
         config = _config;
 
         // Remove annoying draggable feature of browsers
-        $("*").attr("draggable", "false");
+        // $("*").attr("draggable", "false");
 
         // Events
         addVideoEvents();
