@@ -12,13 +12,12 @@ Add git user + make passwordless sudoer
 ```
 sudo adduser git
 sudo usermod -aG sudo git
-passwd git
 su git
 cd ~/
 mkdir .ssh && chmod 700 .ssh
 touch .ssh/authorized_keys && chmod 600 .ssh/authorized_keys
 ```
-- **Add your public key to authorized_keys for passwordless ssh!**
+- **Add your loca id_rsa.pub to authorized_keys for passwordless ssh!**
 - Make git sudo passwordless
 ```
 sudo visudo

@@ -10,6 +10,10 @@
 
 /* General */
 
+* {
+    -webkit-tap-highlight-color: transparent;
+}
+
 *:focus {
     outline: none;
 }
