@@ -91,9 +91,9 @@ const janusPlayer = function() {
     }
 
     function streamsArrived(streams) {
-        streams = removeDeadStreams(streams);
         console.log("Streams arrived");
         console.log(streams);
+        streams = removeDeadStreams(streams);
         if (Array.isArray(streams) && streams.length > 0) {
             watchStream(streams[0]);
             buildDropdown(streams);
