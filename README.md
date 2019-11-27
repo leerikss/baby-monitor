@@ -41,7 +41,7 @@ Includes three different services:
 - Desktop (Ubuntu): Firefox, Chrome
 
 ## TODO
-- A better solution for streaming the phone microphone audio to the RPI speaker. Maybe integrate WebRTC two-way (UV4L?) instead of a dedicated WebSocket Audio Proxy
-- Improve security. Currently the Janus stream, as well as the WebSocket connection, are authenticated by a statically stored password. Possibly integrate OAUTH.
-- Dockerize the different modules
-- The UI is vanilla HTML, JS and CSS, maybe integrate ReactJS and/or some other fancy framework(s)
+- A better solution for streaming the phone microphone audio data to the RPI speaker. Maybe integrate WebRTC two-way (UV4L?) instead of a dedicated WebSocket Audio Proxy
+- Improve security. Currently authentication is required to access the WebRTC live audio/video feeds, as well as for establishing WebSocket connections. The password however is currently static, and stored plaintext in Janus configuration, as well as in different NodeJS .env files on both the Server as well as on the Raspberrys.
+- Dockerize all the Services
+- The UI is written in vanilla HTML, JS and CSS; maybe integrate ReactJS and/or some other fancy framework(s)
