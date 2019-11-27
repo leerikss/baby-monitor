@@ -8,15 +8,15 @@ A WebRTC audio/video streaming system featuring bidirectional streams between Ra
 This is a little audio/video monitoring system I created for my own needs whilst on my paternity leave.
 I had a few Raspberrys lying around, and thought I'd do something with them.
 
-My requirements were:
+My requirements:
 - Stream IR video and Audio from multiple Raspberry devices
 - Play a lullaby song through a speaker as well as stream audio back from a phone microphone to the Raspberry
 - Access the system with a Web UI (iow not write separate mobile clients)
-- Not restricted to WLAN (therefore needed a public server in between)
+- Not restricted to WLAN (therefore needed a public Server)
 - Multiple clients must be able to view the streams simultaneously (=> Janus)
 - Should work well on phones (iPhone + Android), as well as on a desktop browser
 
-I achieved my goals, and it's good enough for my personal needs, but certainly there's plenty of room for improvement.
+I achieved my goals, and it's good enough for my personal needs, but there's certainly plenty of room for improvement.
 
 ## Installation
 To simplify installation I created some shell scripts.
@@ -42,7 +42,6 @@ Includes three different services:
 
 ## TODO
 - A better solution for streaming the phone microphone audio to the RPI speaker. Maybe integrate WebRTC two-way (UV4L?) instead of a dedicated WebSocket Audio Proxy
-- Improve security. Currently the Janus stream, as well as the WebSocket connection, are protected by a statically stored password. Possibly integrate OAUTH.
-- Dockerize the server part and the RPI services
-- The server part is not scalable currently, and would not perform well with multiple clients
-- The UI is vanilla HTML, JS and CSS, maybe integrate ReactJS and/or other fancy frameworks
+- Improve security. Currently the Janus stream, as well as the WebSocket connection, are authenticated by a statically stored password. Possibly integrate OAUTH.
+- Dockerize the different modules
+- The UI is vanilla HTML, JS and CSS, maybe integrate ReactJS and/or some other fancy framework(s)
