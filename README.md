@@ -28,11 +28,11 @@ Refer to [server](https://github.com/leerikss/baby-monitor/tree/master/server)
 
 Includes three different services:
 
-1) Stream Audio/Video (gstreamer => Janus)
+1) Stream WebRTC Audio and Video (gstreamer RTP/UDP => Janus)
    - Refer to [janus-stream](https://github.com/leerikss/baby-monitor/tree/master/rpi/janus-stream)
-2) Play selected song to Speaker
+2) Play selected song on a Speaker
    - Refer to [music-client](https://github.com/leerikss/baby-monitor/tree/master/rpi/music-client)
-3) Stream microphone Audio to Speaker
+3) Stream microphone Audio to a Speaker
    - Refer to [speaker-client](https://github.com/leerikss/baby-monitor/tree/master/rpi/speaker-client)
 
 ## Tested on
