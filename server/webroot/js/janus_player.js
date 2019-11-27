@@ -6,6 +6,8 @@ const janusPlayer = function() {
     let reInit = null;
     let config = {}
 
+    const DEAD_STREAM_MS = 5000;
+
     function init(_config) {
 
         config = _config;
@@ -89,11 +91,23 @@ const janusPlayer = function() {
     }
 
     function streamsArrived(streams) {
+        streams = removeDeadStreams(streams);
         console.log("Streams arrived");
+        console.log(streams);
         if (Array.isArray(streams) && streams.length > 0) {
             watchStream(streams[0]);
             buildDropdown(streams);
         }
+    }
+
+    function removeDeadStreams(streams) {
+        let newStreams = [];
+        streams.forEach(stream => {
+            if (stream.video_age_ms < DEAD_STREAM_MS &&
+                stream.audio_age_ms < DEAD_STREAM_MS)
+                newStreams.push(stream);
+        });
+        return newStreams;
     }
 
     function watchStream(stream) {
@@ -131,6 +145,9 @@ const janusPlayer = function() {
     }
 
     function createAnswer(jsep) {
+
+        console.log(jsep);
+
         console.log("Create answer");
         plugin.createAnswer({
             "pin": config.pin,
