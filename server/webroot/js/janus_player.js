@@ -17,6 +17,67 @@ const janusPlayer = function() {
         });
     }
 
+    function callback() {
+
+        janus = new Janus({
+
+            server: config.url,
+
+            success: function() {
+
+                janus.attach({
+
+                    plugin: "janus.plugin.streaming",
+
+                    success: function(pluginHandle) {
+                        plugin = pluginHandle;
+                        requestStreams();
+                    },
+
+                    onmessage: function(msg, jsep) {
+                        if (msg.result !== undefined && msg.result.status !== undefined) {
+                            var status = msg.result.status;
+                            console.log("onmessage: status = " + status);
+                            if (status === "preparing" && jsep !== undefined)
+                                createAnswer(jsep);
+                        }
+                    },
+
+                    onremotestream: function(stream) {
+                        console.log("Got a remote stream");
+                        console.log(stream);
+                        Janus.attachMediaStream(config.elVideo, stream);
+                    },
+
+                    oncleanup: function() {
+                        console.log("Cleanup!");
+                        if (onCleanup !== null) {
+                            onCleanup();
+                            onCleanup = null;
+                        }
+                    },
+
+                    error: function(cause) {
+                        console.error("janus.attach error", cause);
+                    },
+                });
+            },
+
+            error: function(error) {
+                console.error("Janus error:");
+                console.log(error);
+                // Reinit gracefully
+                if (reInit === null) {
+                    reInit = setTimeout(() => {
+                        console.log("Rerunning init()...");
+                        init(config);
+                        reInit = null;
+                    }, 1000);
+                }
+            }
+        });
+    }
+
     function requestStreams() {
         plugin.send({
             "message": { "request": "list" },
@@ -88,67 +149,6 @@ const janusPlayer = function() {
             "message": { "request": "start" },
             "pin": config.pin,
             "jsep": jsep
-        });
-    }
-
-    function callback() {
-
-        janus = new Janus({
-
-            server: config.url,
-
-            success: function() {
-
-                janus.attach({
-
-                    plugin: "janus.plugin.streaming",
-
-                    success: function(pluginHandle) {
-                        plugin = pluginHandle;
-                        requestStreams();
-                    },
-
-                    onmessage: function(msg, jsep) {
-                        if (msg.result !== undefined && msg.result.status !== undefined) {
-                            var status = msg.result.status;
-                            console.log("onmessage: status = " + status);
-                            if (status === "preparing" && jsep !== undefined)
-                                createAnswer(jsep);
-                        }
-                    },
-
-                    onremotestream: function(stream) {
-                        console.log("Got a remote stream");
-                        console.log(stream);
-                        Janus.attachMediaStream(config.elVideo, stream);
-                    },
-
-                    oncleanup: function() {
-                        console.log("Cleanup!");
-                        if (onCleanup !== null) {
-                            onCleanup();
-                            onCleanup = null;
-                        }
-                    },
-
-                    error: function(cause) {
-                        console.error("janus.attach error", cause);
-                    },
-                });
-            },
-
-            error: function(error) {
-                console.error("Janus error:");
-                console.log(error);
-                // Reinit gracefully
-                if (reInit === null) {
-                    reInit = setTimeout(() => {
-                        console.log("Rerunning init()...");
-                        init(config);
-                        reInit = null;
-                    }, 1000);
-                }
-            }
         });
     }
 
