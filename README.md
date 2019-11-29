@@ -2,7 +2,7 @@
 
 A WebRTC audio/video streaming system featuring bidirectional streams between Raspberry PI devices and a server instance, accessed via a Web UI.
 
-[![Demo video]({https://github.com/leerikss/baby-monitor/tree/master/youtube.png})]({https://www.youtube.com/watch?v=qYF7NukS90A} "Demo video")
+[![Demo video]({https://raw.githubusercontent.com/leerikss/baby-monitor/tree/master/youtube.png})]({https://www.youtube.com/watch?v=qYF7NukS90A} "Demo video")
 
 ![flowchart](https://raw.githubusercontent.com/leerikss/baby-monitor/master/flowchart.jpg)
 
