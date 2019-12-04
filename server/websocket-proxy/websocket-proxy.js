@@ -183,7 +183,7 @@ module.exports = class WebSocketProxy {
     }
 
     onClientPong(client) {
-        console.log("Client " + client.id + " responded to ping");
+        // console.log("Client " + client.id + " responded to ping");
         client.alive = true;
     }
 }
