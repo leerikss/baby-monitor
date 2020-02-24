@@ -1,0 +1,8 @@
+.VideoControls {
+    z-index: 10;
+    position: fixed;
+    bottom: 70px;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+}

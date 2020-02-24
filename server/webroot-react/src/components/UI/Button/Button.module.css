@@ -1,0 +1,31 @@
+.Button {
+    padding: 5px;
+    margin-left:3px;
+    margin-right:3px;
+    width: 20px;
+    height: 20px;
+    border-radius: 5px;
+    border: 1px solid white;
+    box-shadow: 1px 1px rgba(0, 0, 0, .5);
+    cursor: pointer;
+
+    background: rgba(0, 0, 0, .7);
+    background-position: center;
+
+    transition: background 0.5s;
+}
+
+.Button:hover {
+    background: #444444 radial-gradient(circle, transparent 1%, #444444 1%) center/15000%;
+}
+
+.Button:active {
+    background-color: #BBBBBB;
+    background-size: 100%;
+    transition: background 0s;
+}
+
+.menu {
+    margin-left: 15px;
+    margin-right: 15px;
+}

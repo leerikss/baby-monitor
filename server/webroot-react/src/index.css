@@ -1,0 +1,25 @@
+/* Global CSS */
+
+*:focus {
+    outline: none;
+}
+
+/*
+* {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -moz-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+*/
+
+body {
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(0deg, rgba(60, 60, 60, 1) 0%, rgba(20, 20, 20, 1) 100%);
+}
+
+@media screen and (min-width: 960px) {
+    html {
+        overflow-y: scroll;
+        overflow-x: scroll;
+    }
+}
