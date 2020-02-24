@@ -5,14 +5,15 @@ import VideoControls from './VideoControls/VideoControls';
 
 import { JanusContextProvider } from './JanusPlayer/JanusContext';
 import JanusPlayer from './JanusPlayer/JanusPlayer';
-import { janusServerUrl, janusStreamingPin } from './config';
 
 const VideoStream = () => {
 
     return (
         <JanusContextProvider>
             <div className={classes.VideoStream}>
-                <JanusPlayer serverUrl={janusServerUrl} pin={janusStreamingPin}/>
+                <JanusPlayer
+                    serverUrl={process.env.JANUS_SERVER_URL}
+                    pin={process.env.JANUS_PLUGIN_STREAMING_PIN} />
                 <VideoControls />
             </div>
         </JanusContextProvider >
