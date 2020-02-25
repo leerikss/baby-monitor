@@ -1,6 +1,6 @@
 import Janus  from './Janus';
 import React, { useRef, useContext, useEffect } from 'react';
-import { JanusContext } from './JanusContext';
+import { JanusContext } from '../../../context/JanusContext';
 import classes from './JanusPlayer.module.css';
 
 export const JanusPlayer = (props) => {
@@ -97,6 +97,8 @@ export const JanusPlayer = (props) => {
     }
 
     const callback = () => {
+
+        console.log("SERVER: "+props.serverUrl);
 
         janus = new Janus({
 

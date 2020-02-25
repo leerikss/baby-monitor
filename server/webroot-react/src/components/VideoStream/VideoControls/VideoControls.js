@@ -1,9 +1,9 @@
 import React, { useState, useContext } from 'react'
 import classes from './VideoControls.module.css';
 import Button, { ButtonType } from '../../UI/Button/Button';
-import { JanusContext } from '../JanusPlayer/JanusContext';
+import { JanusContext } from '../../../context/JanusContext';
 
-// Constants
+// Constants 
 export const ZOOM = 20;
 
 const VideoControls = (props) => {
