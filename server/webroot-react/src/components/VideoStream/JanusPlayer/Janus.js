@@ -1,4 +1,12 @@
+// This source code was taken from github: https://github.com/meetecho/janus-gateway/blob/master/html/janus.js
+// Added minor modifications to get it working with React: 
+// - eslint - disables, imports, and export Janus
+
+/* eslint-disable no-redeclare */
 /* eslint-disable no-undef */
+/* eslint-disable eqeqeq*/
+/* eslint-disable no-native-reassign*/
+/* eslint-disable no-unused-vars*/
 import adapter from 'webrtc-adapter';
 import jQuery from 'jquery';
 

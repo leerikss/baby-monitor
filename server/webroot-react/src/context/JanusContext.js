@@ -1,35 +1,59 @@
 import React, { useReducer, createContext } from "react";
 
+const JanusContext = createContext();
+
+const JanusContextActions = {
+    ZOOM_VIDEO: 'ZOOM_VIDEO',
+    MUTE_VIDEO: 'MUTE_VIDEO',
+    UNMUTE_VIDEO: 'UNMUTE_VIDEO',
+    PAUSE_VIDEO: 'PAUSE_VIDEO',
+    VIDEO_PAUSED: 'VIDEO_PAUSED',
+    PLAY_VIDEO: 'PLAY_VIDEO',
+    VIDEO_PLAYING: 'VIDEO_PLAYING',
+    NEW_STREAM: 'NEW_STREAM',
+    RESET_STREAMS: 'RESET_STREAMS'
+}
+
+const JanusVideoStates = {
+    PAUSE: 'PAUSE',
+    PAUSED: 'PAUSED',
+    PLAY: 'PLAY',
+    PLAYING: 'PLAYING'
+}
+
 const initialState = {
     janusStreams: [],
-    janusState: null,
-    videoPaused: true,
+    videoState: JanusVideoStates.PAUSED,
     videoMuted: false,
     videoHeight: 100
 };
 
-const JanusContext = createContext();
-
 const reducer = (state, action) => {
     switch (action.type) {
-        case 'ZOOM_VIDEO':
-            return {...state, videoHeight: state.videoHeight + action.zoom }
-        case 'MUTE_VIDEO':
+        case JanusContextActions.ZOOM_VIDEO:
+            return { ...state, videoHeight: state.videoHeight + action.zoom }
+
+        case JanusContextActions.MUTE_VIDEO:
             return { ...state, videoMuted: true };
-        case 'UNMUTE_VIDEO':
+        case JanusContextActions.UNMUTE_VIDEO:
             return { ...state, videoMuted: false };
-        case 'PAUSE_VIDEO':
-            return { ...state, videoPaused: true };
-        case 'PLAY_VIDEO':
-            return { ...state, videoPaused: false };
-        case 'SET_JANUS_STATE':
-            return { ...state, janusState: action.janusState };
-        case 'NEW_STREAM':
+
+        case JanusContextActions.PAUSE_VIDEO:
+            return { ...state, videoState: JanusVideoStates.PAUSE };
+        case JanusContextActions.VIDEO_PAUSED:
+            return { ...state, videoState: JanusVideoStates.PAUSED };
+        case JanusContextActions.PLAY_VIDEO:
+            return { ...state, videoState: JanusVideoStates.PLAY };
+        case JanusContextActions.VIDEO_PLAYING:
+            return { ...state, videoState: JanusVideoStates.PLAYING };
+
+        case JanusContextActions.NEW_STREAM:
             return {
                 ...state,
-                janusStreams: 
-                [...state.janusStreams].push(action.janusStream) };
-        case 'RESET_STREAMS':
+                janusStreams:
+                    [...state.janusStreams].push(action.janusStream)
+            };
+        case JanusContextActions.RESET_STREAMS:
             return { ...state, janusStreams: [] };
         default:
             return state;
@@ -44,8 +68,8 @@ const JanusContextProvider = (props) => {
     return (
         <JanusContext.Provider value={value}>
             {props.children}
-        </JanusContext.Provider>        
+        </JanusContext.Provider>
     );
 }
 
-export { JanusContext, JanusContextProvider }
+export { JanusContext, JanusContextProvider, JanusContextActions, JanusVideoStates }

@@ -1,38 +1,50 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import classes from './VideoControls.module.css';
 import Button, { ButtonType } from '../../UI/Button/Button';
-import { JanusContext } from '../../../context/JanusContext';
+import { JanusContext, JanusContextActions, JanusVideoStates } from '../../../context/JanusContext';
 
 // Constants 
 export const ZOOM = 20;
 
 const VideoControls = (props) => {
 
-    const {dispatch} = useContext(JanusContext);
     const [togglePlay, setTogglePlay] = useState(ButtonType.PLAY);
     const [toggleMute, setToggleMute] = useState(ButtonType.MUTE);
+    const { state, dispatch } = useContext(JanusContext);
 
-    const playButtonHandler = () => {
-        if (togglePlay === ButtonType.PLAY) {
+    // Manage play/pause button toggle via context changes
+    useEffect(() => {
+        if (state.videoState === JanusVideoStates.PLAYING)
             setTogglePlay(ButtonType.PAUSE);
-            dispatch({ type: 'PLAY_VIDEO' })
-        } else {
+        else if(state.videoState === JanusVideoStates.PAUSED)
             setTogglePlay(ButtonType.PLAY);
-            dispatch({ type: 'PAUSE_VIDEO' })
+    }, [state.videoState]);
+
+    // Manage mute/unmute button toggle via context changes
+    useEffect(() => {
+        if (state.videoMuted)
+            setToggleMute(ButtonType.UNMUTE);
+        else
+            setToggleMute(ButtonType.MUTE);
+    }, [state.videoMuted]);
+
+    // Button click handlers
+    const playButtonHandler = () => {
+        if (state.videoState === JanusVideoStates.PAUSED) {
+            dispatch({ type: JanusContextActions.PLAY_VIDEO })
+        } else if (state.videoState === JanusVideoStates.PLAYING) {
+            dispatch({ type: JanusContextActions.PAUSE_VIDEO })
         }
     }
 
     const muteButtonHandler = () => {
-        if (toggleMute === ButtonType.UNMUTE) {
-            setToggleMute(ButtonType.MUTE);
-            dispatch({ type: 'UNMUTE_VIDEO' })
+        if (state.videoMuted) {
+            dispatch({ type: JanusContextActions.UNMUTE_VIDEO })
         } else {
-            setToggleMute(ButtonType.UNMUTE);
-            dispatch({ type: 'MUTE_VIDEO' })
+            dispatch({ type: JanusContextActions.MUTE_VIDEO })
         }
     }
 
-    // Handler functions
     const zoomInHandler = () => {
         dispatch({ type: 'ZOOM_VIDEO', zoom: ZOOM });
     }

@@ -18,6 +18,7 @@ function App() {
             <VideoStream
                 pin={password}
                 serverUrl={process.env.REACT_APP_JANUS_SERVER_URL} />
+            
         </JanusContextProvider>
 
     return (

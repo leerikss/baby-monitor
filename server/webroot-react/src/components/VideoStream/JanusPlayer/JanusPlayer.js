@@ -1,12 +1,11 @@
 import Janus  from './Janus';
 import React, { useRef, useContext, useEffect } from 'react';
-import { JanusContext } from '../../../context/JanusContext';
+import { JanusContext, JanusContextActions, JanusVideoStates } from '../../../context/JanusContext';
 import classes from './JanusPlayer.module.css';
 
 export const JanusPlayer = (props) => {
     
     const videoDom = useRef(null);
-
     const { state, dispatch } = useContext(JanusContext);
 
     // Init
@@ -20,11 +19,11 @@ export const JanusPlayer = (props) => {
 
     // Play/pause video
     useEffect(() => {
-        if (state.videoPaused)
+        if (state.videoState === JanusVideoStates.PAUSE)
             videoDom.current.pause();
-        else
+        else if(state.videoState === JanusVideoStates.PLAY)
             videoDom.current.play();
-    }, [state.videoPaused]);    
+    }, [state.videoState]);    
 
     // mute/unmute video
     useEffect(() => {
@@ -119,6 +118,7 @@ export const JanusPlayer = (props) => {
                         if (msg.result !== undefined && msg.result.status !== undefined) {
                             var status = msg.result.status;
                             console.log("onmessage: status = " + status);
+
                             if (status === "preparing" && jsep !== undefined)
                                 createAnswer(jsep);
                         }
@@ -133,12 +133,6 @@ export const JanusPlayer = (props) => {
                     oncleanup: function () {
                         console.log("Cleanup!");
                         // TODO
-                        /*
-                        if (onCleanup !== null) {
-                            onCleanup();
-                            onCleanup = null;
-                        }
-                        */
                     },
 
                     error: function (cause) {
@@ -168,6 +162,8 @@ export const JanusPlayer = (props) => {
             style={{ height: `${state.videoHeight}vh` }}
             className={classes.Video}
             autoPlay
+            onPlay={() => { dispatch({ type: JanusContextActions.VIDEO_PLAYING }) }}
+            onPause={() => { dispatch({ type: JanusContextActions.VIDEO_PAUSED }) }}
             playsInline></video>
     );
 }
