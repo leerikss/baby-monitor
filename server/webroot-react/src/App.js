@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import './App.css';
 import { LoginForm } from './components/LoginForm/LoginForm';
 import VideoStream from './components/VideoStream/VideoStream';
-import { JanusContextProvider } from './context/JanusContext';
+import { AppContextProvider } from './context/AppContext';
+import Animator from './components/UI/Animator/Animator'
+import Menu from './components/Menu/Menu';
 
 function App() {
 
@@ -12,18 +14,27 @@ function App() {
         setPassword(pass);
     }
 
-    const content = (password === null) ?
-        <LoginForm submit={submitHandler} /> :
-        <JanusContextProvider>
-            <VideoStream
-                pin={password}
-                serverUrl={process.env.REACT_APP_JANUS_SERVER_URL} />
-            
-        </JanusContextProvider>
+    const showLoginForm = (password === null);
 
     return (
         <div className="App">
-            {content}
+
+            <AppContextProvider>
+
+                <Animator show={showLoginForm}>
+                    <LoginForm submit={submitHandler} />
+                </Animator>
+
+                <Animator show={!showLoginForm}>
+                    <VideoStream
+                        pin={password}
+                        serverUrl={process.env.REACT_APP_JANUS_SERVER_URL} />
+                </Animator>
+
+                <Menu />
+
+            </AppContextProvider>
+
         </div>
     );
 }

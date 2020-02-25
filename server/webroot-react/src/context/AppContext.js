@@ -1,8 +1,10 @@
 import React, { useReducer, createContext } from "react";
 
-const JanusContext = createContext();
+const AppContext = createContext();
 
-const JanusContextActions = {
+const AppContextActions = {
+    OPEN_MENU: 'OPEN_MENU',
+    CLOSE_MENU: 'CLOSE_MENU',
     ZOOM_VIDEO: 'ZOOM_VIDEO',
     MUTE_VIDEO: 'MUTE_VIDEO',
     UNMUTE_VIDEO: 'UNMUTE_VIDEO',
@@ -25,51 +27,58 @@ const initialState = {
     janusStreams: [],
     videoState: JanusVideoStates.PAUSED,
     videoMuted: false,
-    videoHeight: 100
+    videoHeight: 100,
+    menuOpen: false
 };
 
 const reducer = (state, action) => {
     switch (action.type) {
-        case JanusContextActions.ZOOM_VIDEO:
+
+        case AppContextActions.OPEN_MENU:
+            return { ...state, menuOpen: true }
+        case AppContextActions.CLOSE_MENU:
+                return { ...state, menuOpen: false}
+
+        case AppContextActions.ZOOM_VIDEO:
             return { ...state, videoHeight: state.videoHeight + action.zoom }
 
-        case JanusContextActions.MUTE_VIDEO:
+        case AppContextActions.MUTE_VIDEO:
             return { ...state, videoMuted: true };
-        case JanusContextActions.UNMUTE_VIDEO:
+        case AppContextActions.UNMUTE_VIDEO:
             return { ...state, videoMuted: false };
 
-        case JanusContextActions.PAUSE_VIDEO:
+        case AppContextActions.PAUSE_VIDEO:
             return { ...state, videoState: JanusVideoStates.PAUSE };
-        case JanusContextActions.VIDEO_PAUSED:
+        case AppContextActions.VIDEO_PAUSED:
             return { ...state, videoState: JanusVideoStates.PAUSED };
-        case JanusContextActions.PLAY_VIDEO:
+        case AppContextActions.PLAY_VIDEO:
             return { ...state, videoState: JanusVideoStates.PLAY };
-        case JanusContextActions.VIDEO_PLAYING:
+        case AppContextActions.VIDEO_PLAYING:
             return { ...state, videoState: JanusVideoStates.PLAYING };
 
-        case JanusContextActions.NEW_STREAM:
+        case AppContextActions.NEW_STREAM:
             return {
                 ...state,
                 janusStreams:
                     [...state.janusStreams].push(action.janusStream)
             };
-        case JanusContextActions.RESET_STREAMS:
+        case AppContextActions.RESET_STREAMS:
             return { ...state, janusStreams: [] };
         default:
             return state;
     }
 }
 
-const JanusContextProvider = (props) => {
+const AppContextProvider = (props) => {
 
     const [state, dispatch] = useReducer(reducer, initialState);
     const value = { state, dispatch }
 
     return (
-        <JanusContext.Provider value={value}>
+        <AppContext.Provider value={value}>
             {props.children}
-        </JanusContext.Provider>
+        </AppContext.Provider>
     );
 }
 
-export { JanusContext, JanusContextProvider, JanusContextActions, JanusVideoStates }
+export { AppContext, AppContextProvider, AppContextActions, JanusVideoStates }

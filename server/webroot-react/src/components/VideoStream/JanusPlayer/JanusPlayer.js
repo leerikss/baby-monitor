@@ -1,12 +1,12 @@
 import Janus  from './Janus';
 import React, { useRef, useContext, useEffect } from 'react';
-import { JanusContext, JanusContextActions, JanusVideoStates } from '../../../context/JanusContext';
+import { AppContext, AppContextActions, JanusVideoStates } from '../../../context/AppContext';
 import classes from './JanusPlayer.module.css';
 
 export const JanusPlayer = (props) => {
     
     const videoDom = useRef(null);
-    const { state, dispatch } = useContext(JanusContext);
+    const { state, dispatch } = useContext(AppContext);
 
     // Init
     useEffect(() => {
@@ -162,8 +162,8 @@ export const JanusPlayer = (props) => {
             style={{ height: `${state.videoHeight}vh` }}
             className={classes.Video}
             autoPlay
-            onPlay={() => { dispatch({ type: JanusContextActions.VIDEO_PLAYING }) }}
-            onPause={() => { dispatch({ type: JanusContextActions.VIDEO_PAUSED }) }}
+            onPlay={() => { dispatch({ type: AppContextActions.VIDEO_PLAYING }) }}
+            onPause={() => { dispatch({ type: AppContextActions.VIDEO_PAUSED }) }}
             playsInline></video>
     );
 }
