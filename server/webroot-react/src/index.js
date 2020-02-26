@@ -4,8 +4,9 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { AppContextProvider } from './context/AppContext';
+import { JanusContextProvider } from './context/JanusContext';
 
-ReactDOM.render(<AppContextProvider><App /></AppContextProvider>,
+ReactDOM.render(<AppContextProvider><JanusContextProvider><App /></JanusContextProvider></AppContextProvider>,
     document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change

@@ -12,11 +12,9 @@ const AppContextActions = {
     VIDEO_PAUSED: 'VIDEO_PAUSED',
     PLAY_VIDEO: 'PLAY_VIDEO',
     VIDEO_PLAYING: 'VIDEO_PLAYING',
-    SET_JANUS_STREAMS: 'SET_JANUS_STREAMS',
-    SET_SELECTED_JANUS_STREAM: 'SET_SELECTED_JANUS_STREAM'
 }
 
-const JanusVideoStates = {
+const VideoStates = {
     PAUSE: 'PAUSE',
     PAUSED: 'PAUSED',
     PLAY: 'PLAY',
@@ -26,7 +24,7 @@ const JanusVideoStates = {
 const initialState = {
     janusStreams: [],
     selectedJanusStream: null,
-    videoState: JanusVideoStates.PAUSED,
+    videoState: VideoStates.PAUSED,
     videoMuted: false,
     videoHeight: 100,
     menuOpen: false
@@ -49,13 +47,13 @@ const reducer = (state, action) => {
             return { ...state, videoMuted: false };
 
         case AppContextActions.PAUSE_VIDEO:
-            return { ...state, videoState: JanusVideoStates.PAUSE };
+            return { ...state, videoState: VideoStates.PAUSE };
         case AppContextActions.VIDEO_PAUSED:
-            return { ...state, videoState: JanusVideoStates.PAUSED };
+            return { ...state, videoState: VideoStates.PAUSED };
         case AppContextActions.PLAY_VIDEO:
-            return { ...state, videoState: JanusVideoStates.PLAY };
+            return { ...state, videoState: VideoStates.PLAY };
         case AppContextActions.VIDEO_PLAYING:
-            return { ...state, videoState: JanusVideoStates.PLAYING };
+            return { ...state, videoState: VideoStates.PLAYING };
 
         case AppContextActions.SET_JANUS_STREAMS:
             return {
@@ -82,4 +80,4 @@ const AppContextProvider = (props) => {
     );
 }
 
-export { AppContext, AppContextProvider, AppContextActions, JanusVideoStates }
+export { AppContext, AppContextProvider, AppContextActions, VideoStates }

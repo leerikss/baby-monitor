@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'
 import classes from './VideoControls.module.css';
 import Button, { ButtonType } from '../../UI/Button/Button';
-import { AppContext, AppContextActions, JanusVideoStates } from '../../../context/AppContext';
+import { AppContext, AppContextActions, VideoStates } from '../../../context/AppContext';
 
 // Constants 
 export const ZOOM = 20;
@@ -14,9 +14,9 @@ const VideoControls = (props) => {
 
     // Manage play/pause button toggle via context changes
     useEffect(() => {
-        if (state.videoState === JanusVideoStates.PLAYING)
+        if (state.videoState === VideoStates.PLAYING)
             setTogglePlay(ButtonType.PAUSE);
-        else if(state.videoState === JanusVideoStates.PAUSED)
+        else if(state.videoState === VideoStates.PAUSED)
             setTogglePlay(ButtonType.PLAY);
     }, [state.videoState]);
 
@@ -30,9 +30,9 @@ const VideoControls = (props) => {
 
     // Button click handlers
     const playButtonHandler = () => {
-        if (state.videoState === JanusVideoStates.PAUSED) {
+        if (state.videoState === VideoStates.PAUSED) {
             dispatch({ type: AppContextActions.PLAY_VIDEO })
-        } else if (state.videoState === JanusVideoStates.PLAYING) {
+        } else if (state.videoState === VideoStates.PLAYING) {
             dispatch({ type: AppContextActions.PAUSE_VIDEO })
         }
     }

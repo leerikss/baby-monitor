@@ -1,35 +1,20 @@
 import React, { useRef, useContext, useEffect } from 'react';
-import { AppContext, AppContextActions, JanusVideoStates } from '../../../context/AppContext';
+import { AppContext, AppContextActions, VideoStates } from '../../../context/AppContext';
 import classes from './JanusVideo.module.css';
 import useJanus from '../../../hooks/janus/useJanus';
-
-let initJanus = null, watchStream = null;
 
 export const JanusVideo = (props) => {
 
     const videoEl = useRef(null);
     const { state, dispatch } = useContext(AppContext);
-    ({ initJanus, watchStream } = useJanus(props.serverUrl, props.pin, videoEl));
 
-    // On component renders
-    useEffect(() => {
-        if (props.pin === null)
-            return
-        initJanus();
-    }, [props.pin]);
-
-    // On new stream selected
-    useEffect(() => {
-        if (state.selectedJanusStream === null)
-            return;
-        watchStream( parseInt(state.selectedJanusStream) );
-    }, [state.selectedJanusStream]);
+    useJanus(props.serverUrl, props.pin, videoEl);
 
     // Play/pause video
     useEffect(() => {
-        if (state.videoState === JanusVideoStates.PAUSE)
+        if (state.videoState === VideoStates.PAUSE)
             videoEl.current.pause();
-        else if (state.videoState === JanusVideoStates.PLAY)
+        else if (state.videoState === VideoStates.PLAY)
             videoEl.current.play();
     }, [state.videoState]);
 

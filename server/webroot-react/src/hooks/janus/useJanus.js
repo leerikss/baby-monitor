@@ -1,46 +1,42 @@
 import Janus from './Janus';
-import { useContext, useCallback } from 'react';
-import { AppContext, AppContextActions } from '../../context/AppContext';
+import { useContext, useEffect, useRef } from 'react';
+import { JanusContext, JanusContextActions } from '../../context/JanusContext';
 
 export const STREAM_TTL_MS = 5000;
 
 const useJanus = (serverUrl, pin, videoEl) => {
 
-    const { dispatch } = useContext(AppContext);
+    const { state, dispatch } = useContext(JanusContext);
+    let plugin = useRef(null);
 
-    let plugin = null, currentStream = null;
-
-    const initJanus = () => {
-        console.log("initJanus()");
-        Janus.init({
-            debug: false, // true,
-            dependencies: Janus.useDefaultDependencies(),
-            callback: callback
-        });
-    };
-
-    const watchStream = useCallback( (id) => {
-
-        if (plugin === null)
+    // Init
+    useEffect(() => {
+        if (pin === null)
             return;
-        
-        const type = (currentStream === null) ? "watch" : "switch";
-        
+        init.current();
+    }, [pin]);
+
+    // Change active Stream
+    useEffect(() => {
+        if (plugin.current === null)
+            return;
+
         const msg = {
             "message": {
-                "request": type,
-                "id": id
+                "request": "switch",
+                "id": parseInt(state.activeStreamId)
             }
         };
-        plugin.send(msg);
+        plugin.current.send(msg);
 
-        console.log("watchStream():");
+        console.log("Switching Stream():");
         console.log(msg);
-
-    }, [plugin, currentStream]);
-
-    const callback = () => {
         
+    }, [state.activeStreamId]);
+    
+    // Janus related code starts
+    const janusCallback = () => {
+
         let rerunInit = null, janus = null, mediaAttached = false;
 
         janus = new Janus({
@@ -51,8 +47,8 @@ const useJanus = (serverUrl, pin, videoEl) => {
                     plugin: "janus.plugin.streaming",
 
                     success: (pluginHandle) => {
-                        plugin = pluginHandle;
-
+                        plugin.current = pluginHandle;
+                        
                         request(
                             { "request": "list" },
                             {
@@ -80,12 +76,11 @@ const useJanus = (serverUrl, pin, videoEl) => {
                     onremotestream: (stream) => {
                         if (mediaAttached)
                             return;
-                        
+
                         console.log("onRemoteStream():");
                         console.log(stream);
 
                         Janus.attachMediaStream(videoEl.current, stream);
-                        currentStream = stream.id;
                         mediaAttached = true;
                     },
 
@@ -119,7 +114,7 @@ const useJanus = (serverUrl, pin, videoEl) => {
                 },
                 ...extra
             };
-            plugin.send(msg);
+            plugin.current.send(msg);
 
             console.log("request():");
             console.log(msg);
@@ -137,7 +132,7 @@ const useJanus = (serverUrl, pin, videoEl) => {
                 .filter(stream => stream.video_age_ms < STREAM_TTL_MS &&
                     stream.audio_age_ms < STREAM_TTL_MS);
 
-            dispatch({ type: AppContextActions.SET_JANUS_STREAMS, streams: streams })
+            dispatch({ type: JanusContextActions.SET_STREAMS, streams: streams })
 
             request({ "request": "watch", id: parseInt(streams[0].id) });
         }
@@ -152,16 +147,21 @@ const useJanus = (serverUrl, pin, videoEl) => {
                     console.error("WebRTC error: ", error);
                 }
             };
-            plugin.createAnswer(msg);
+            plugin.current.createAnswer(msg);
             console.log("createAnswer():");
             console.log(msg);
         }
-    }
+    };
 
-    return {
-        initJanus: initJanus,
-        watchStream: watchStream
-    }
+    const initJanus = () => {
+        console.log("initJanus()");
+        Janus.init({
+            debug: false, // true,
+            dependencies: Janus.useDefaultDependencies(),
+            callback: janusCallback
+        });
+    };
+    const init = useRef(initJanus);
 
 }
 
