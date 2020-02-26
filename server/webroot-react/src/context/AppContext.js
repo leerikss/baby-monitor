@@ -12,8 +12,8 @@ const AppContextActions = {
     VIDEO_PAUSED: 'VIDEO_PAUSED',
     PLAY_VIDEO: 'PLAY_VIDEO',
     VIDEO_PLAYING: 'VIDEO_PLAYING',
-    NEW_STREAM: 'NEW_STREAM',
-    RESET_STREAMS: 'RESET_STREAMS'
+    SET_JANUS_STREAMS: 'SET_JANUS_STREAMS',
+    SET_SELECTED_JANUS_STREAM: 'SET_SELECTED_JANUS_STREAM'
 }
 
 const JanusVideoStates = {
@@ -25,6 +25,7 @@ const JanusVideoStates = {
 
 const initialState = {
     janusStreams: [],
+    selectedJanusStream: null,
     videoState: JanusVideoStates.PAUSED,
     videoMuted: false,
     videoHeight: 100,
@@ -56,14 +57,14 @@ const reducer = (state, action) => {
         case AppContextActions.VIDEO_PLAYING:
             return { ...state, videoState: JanusVideoStates.PLAYING };
 
-        case AppContextActions.NEW_STREAM:
+        case AppContextActions.SET_JANUS_STREAMS:
             return {
                 ...state,
-                janusStreams:
-                    [...state.janusStreams].push(action.janusStream)
+                janusStreams: [...action.streams]
             };
-        case AppContextActions.RESET_STREAMS:
-            return { ...state, janusStreams: [] };
+        case AppContextActions.SET_SELECTED_JANUS_STREAM:
+            return { ...state, selectedJanusStream: action.streamId }
+        
         default:
             return state;
     }
