@@ -1,21 +1,16 @@
-import React, { useContext } from 'react'
-
-import { AppContext } from '../../context/AppContext';
-import Animator from '../UI/Animator/Animator'
+import React from 'react'
 
 import classes from './Menu.module.css';
 import JanusStreamSelector from './JanusStreamSelector/JanusStreamSelector';
+import MusicSelector from './MusicSelector/MusicSelector';
 
 const Menu = (props) => {
 
-    const { state } = useContext(AppContext);
-
     return (
-        <Animator show={state.menuOpen}>
-            <div className={classes.Menu}>
-                <JanusStreamSelector />
-            </div>
-        </Animator>
+        <div className={classes.Menu}>
+            <JanusStreamSelector />
+            <MusicSelector />
+        </div>
     );
 }
 

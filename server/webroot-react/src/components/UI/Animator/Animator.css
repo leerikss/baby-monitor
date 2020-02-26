@@ -1,21 +1,21 @@
 .fade-slide-enter {
     opacity: 0;
+    transform: translateX(-100%);
 }
 
 .fade-slide-enter-active {
     opacity: 1;
-    transition: 1000ms;
+    transform: translateX(0%);
+    transition: all 500ms ease-in;
 }
 
-.fade-slide-enter-done {
+.fade-slide-exit {
     opacity: 1;
+    transform: translateX(0%);
 }
 
 .fade-slide-exit-active {
     opacity: 0;
-    transition: 1000ms;
-}
-
-.fade-slide-exit-done {
-    opacity: 0;
+    transform: translateX(-100%);
+    transition: all 500ms ease-out;
 }

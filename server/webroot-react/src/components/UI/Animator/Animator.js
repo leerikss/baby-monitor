@@ -2,7 +2,7 @@ import React from 'react';
 import CSSTransition from 'react-transition-group/CSSTransition';
 import './Animator.css';
 
-const DURATION = 1000;
+const DURATION = 500;
 
 const Animator = (props) => {
     return (
@@ -10,6 +10,8 @@ const Animator = (props) => {
             in={props.show}
             mountOnEnter
             unmountOnExit
+            enter={true}
+            exit={true}
             timeout={DURATION}
             classNames="fade-slide">
             {props.children}
