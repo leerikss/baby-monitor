@@ -9,7 +9,7 @@ import Menu from './components/Menu/Menu';
 function App() {
 
     const [password, setPassword] = useState(null);
-    const { state } = useContext(AppContext);
+    const [ state ] = useContext(AppContext);
 
     const submitHandler = (pass) => {
         setPassword(pass);

@@ -4,12 +4,12 @@ const JanusContext = createContext();
 
 const JanusContextActions = {
     SET_STREAMS: 'SET_STREAMS',
-    SET_SELECTED_STREAM_ID: 'SET_SELECTED_STREAM_ID'
+    SET_CURRENT_STREAM_ID: 'SET_CURRENT_STREAM_ID'
 }
 
 const initialState = {
     streams: [],
-    activeStreamId: null
+    currentStreamId: null
 };
 
 const reducer = (state, action) => {
@@ -19,8 +19,8 @@ const reducer = (state, action) => {
                 ...state,
                 streams: [...action.streams]
             };
-        case JanusContextActions.SET_SELECTED_STREAM_ID:
-            return { ...state, activeStreamId: action.streamId }
+        case JanusContextActions.SET_CURRENT_STREAM_ID:
+            return { ...state, currentStreamId: action.streamId }
         
         default:
             return state;
@@ -30,7 +30,7 @@ const reducer = (state, action) => {
 const JanusContextProvider = (props) => {
 
     const [state, dispatch] = useReducer(reducer, initialState);
-    const value = { state, dispatch }
+    const value = [ state, dispatch ]
 
     return (
         <JanusContext.Provider value={value}>

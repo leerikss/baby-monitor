@@ -22,8 +22,6 @@ const VideoStates = {
 }
 
 const initialState = {
-    janusStreams: [],
-    selectedJanusStream: null,
     videoState: VideoStates.PAUSED,
     videoMuted: false,
     videoHeight: 100,
@@ -55,14 +53,6 @@ const reducer = (state, action) => {
         case AppContextActions.VIDEO_PLAYING:
             return { ...state, videoState: VideoStates.PLAYING };
 
-        case AppContextActions.SET_JANUS_STREAMS:
-            return {
-                ...state,
-                janusStreams: [...action.streams]
-            };
-        case AppContextActions.SET_SELECTED_JANUS_STREAM:
-            return { ...state, selectedJanusStream: action.streamId }
-        
         default:
             return state;
     }
@@ -71,7 +61,7 @@ const reducer = (state, action) => {
 const AppContextProvider = (props) => {
 
     const [state, dispatch] = useReducer(reducer, initialState);
-    const value = { state, dispatch }
+    const value = [ state, dispatch ]
 
     return (
         <AppContext.Provider value={value}>

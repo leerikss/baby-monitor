@@ -1,39 +1,40 @@
 import Janus from './Janus';
-import { useContext, useEffect, useRef } from 'react';
-import { JanusContext, JanusContextActions } from '../../context/JanusContext';
+import { useEffect, useState, useRef } from 'react';
 
 export const STREAM_TTL_MS = 5000;
 
 const useJanus = (serverUrl, pin, videoEl) => {
 
-    const { state, dispatch } = useContext(JanusContext);
-    let plugin = useRef(null);
+    const [availableStreams, setAvailableStreams] = useState([]);
+
+    let plugin = null;
+    let running = false
 
     // Init
     useEffect(() => {
+        console.log(pin);
         if (pin === null)
             return;
         init.current();
     }, [pin]);
 
     // Change active Stream
-    useEffect(() => {
-        if (plugin.current === null)
+    const setCurrentStream = (streamId) => {
+        if (plugin === null)
             return;
 
         const msg = {
             "message": {
-                "request": "switch",
-                "id": parseInt(state.activeStreamId)
+                "request": (!running) ? "watch" : "switch",
+                "id": streamId,
+                pin: pin
             }
         };
-        plugin.current.send(msg);
-
-        console.log("Switching Stream():");
+        plugin.send(msg);
+        console.log("setCurrentStream():");
         console.log(msg);
-        
-    }, [state.activeStreamId]);
-    
+    };
+
     // Janus related code starts
     const janusCallback = () => {
 
@@ -47,8 +48,8 @@ const useJanus = (serverUrl, pin, videoEl) => {
                     plugin: "janus.plugin.streaming",
 
                     success: (pluginHandle) => {
-                        plugin.current = pluginHandle;
-                        
+                        plugin = pluginHandle;
+
                         request(
                             { "request": "list" },
                             {
@@ -81,7 +82,9 @@ const useJanus = (serverUrl, pin, videoEl) => {
                         console.log(stream);
 
                         Janus.attachMediaStream(videoEl.current, stream);
+
                         mediaAttached = true;
+                        running = true;
                     },
 
                     error: (cause) => {
@@ -114,7 +117,7 @@ const useJanus = (serverUrl, pin, videoEl) => {
                 },
                 ...extra
             };
-            plugin.current.send(msg);
+            plugin.send(msg);
 
             console.log("request():");
             console.log(msg);
@@ -132,9 +135,7 @@ const useJanus = (serverUrl, pin, videoEl) => {
                 .filter(stream => stream.video_age_ms < STREAM_TTL_MS &&
                     stream.audio_age_ms < STREAM_TTL_MS);
 
-            dispatch({ type: JanusContextActions.SET_STREAMS, streams: streams })
-
-            request({ "request": "watch", id: parseInt(streams[0].id) });
+            setAvailableStreams(streams);
         }
 
         const createAnswer = (jsep) => {
@@ -147,7 +148,7 @@ const useJanus = (serverUrl, pin, videoEl) => {
                     console.error("WebRTC error: ", error);
                 }
             };
-            plugin.current.createAnswer(msg);
+            plugin.createAnswer(msg);
             console.log("createAnswer():");
             console.log(msg);
         }
@@ -155,6 +156,7 @@ const useJanus = (serverUrl, pin, videoEl) => {
 
     const initJanus = () => {
         console.log("initJanus()");
+        running = false;
         Janus.init({
             debug: false, // true,
             dependencies: Janus.useDefaultDependencies(),
@@ -163,6 +165,10 @@ const useJanus = (serverUrl, pin, videoEl) => {
     };
     const init = useRef(initJanus);
 
+    return {
+        availableStreams: availableStreams,
+        setCurrentStream: setCurrentStream
+    }
 }
 
 export default useJanus;

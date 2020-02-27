@@ -10,7 +10,7 @@ const VideoControls = (props) => {
 
     const [togglePlay, setTogglePlay] = useState(ButtonType.PLAY);
     const [toggleMute, setToggleMute] = useState(ButtonType.MUTE);
-    const { state, dispatch } = useContext(AppContext);
+    const [state, dispatch] = useContext(AppContext);
 
     // Manage play/pause button toggle via context changes
     useEffect(() => {
