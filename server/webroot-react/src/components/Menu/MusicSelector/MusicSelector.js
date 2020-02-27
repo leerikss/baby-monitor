@@ -7,7 +7,7 @@ import useMusicPlayer, { MusicPlayerStatus } from '../../../hooks/musicPlayer/us
 
 const MusicSelector = (props) => {
 
-    const { init, cleanUp, play, stop, status, songs } = useMusicPlayer(props.serverUrl, props.password);
+    const {init, cleanUp, play, stop, status, songs} = useMusicPlayer(props.serverUrl, props.password);
     const [options, setOptions] = useState(null);
     const [selectedSongId, setSelectedSongId] = useState(null);
     const btnRef = useRef(null);
@@ -66,7 +66,10 @@ const MusicSelector = (props) => {
                 onChange={selectChangeHandler}>
                 {options}
             </select>
-            <img ref={btnRef} onClick={togglePlayHandler} alt="Play/Stop Song" src={PlaySong} />
+            <img ref={btnRef}
+                onClick={togglePlayHandler}
+                alt="Play/Stop Song"
+                src={PlaySong} />
         </div>
     )
 }

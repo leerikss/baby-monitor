@@ -29,8 +29,9 @@ const JanusStreamSelector = () => {
     }
 
     return (
-
-        <select value={state.currentStreamId} onChange={selectChangeHandler} className={classes.JanusStreamSelector}>
+        <select value={state.currentStreamId}
+            onChange={selectChangeHandler}
+            className={classes.JanusStreamSelector}>
             {options}
         </select>
     )

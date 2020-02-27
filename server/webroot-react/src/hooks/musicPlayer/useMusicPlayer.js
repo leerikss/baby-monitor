@@ -93,14 +93,19 @@ const useMusicPlayer = (url,password) => {
     }, [url, password, setSongs, cleanUp, send]);
 
     const play = useCallback( (song) => {
-        send({ "request": "play", "song": song });
+        send({
+            "request": "play",
+            "song": song
+        });
         setStatus(MusicPlayerStatus.PLAY);
     }, [send]);
 
     const stop = useCallback(() => {
-        send({ "request": "stop" });
+        send({
+            "request": "stop"
+        });
         setStatus(MusicPlayerStatus.STOP);
-    }, []);
+    }, [send]);
     
     return useMemo(() => ({
         init: init,
