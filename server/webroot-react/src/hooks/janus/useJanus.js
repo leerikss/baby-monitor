@@ -165,7 +165,7 @@ const useJanus = (serverUrl, pin, videoEl) => {
 
     }, [pin,plugin,running] );
 
-    return useMemo( () => ({
+    return useMemo( () => ( {
         init: init,
         availableStreams: availableStreams,
         watchStream: watchStream
