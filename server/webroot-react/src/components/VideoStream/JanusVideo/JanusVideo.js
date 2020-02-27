@@ -11,12 +11,15 @@ export const JanusVideo = (props) => {
     const [uiState, uiDispatch] = useContext(AppContext);
     const [janusState, janusDispatch] = useContext(JanusContext);
 
-    const { init, availableStreams, watchStream } = useJanus(props.serverUrl, props.pin, videoEl);
+    const { init, cleanUp, availableStreams, watchStream } = useJanus(props.serverUrl, props.pin, videoEl);
 
     // Init janus
     useEffect(() => {
         init();
-    },[init]);
+        return () => {
+            cleanUp();
+        }
+    },[init,cleanUp]);
 
     // Janus available Streams changed => dispacth context
     useEffect(() => {
@@ -58,7 +61,9 @@ export const JanusVideo = (props) => {
     return (
         <video
             ref={videoEl}
-            style={{ height: `${uiState.videoHeight}vh` }}
+            style={{
+                height: `${uiState.videoHeight}vh`
+            }}
             className={classes.Video}
             autoPlay
             onPlay={() => { uiDispatch({ type: AppContextActions.VIDEO_PLAYING }) }}

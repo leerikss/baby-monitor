@@ -9,6 +9,7 @@ const useJanus = (serverUrl, pin, videoEl) => {
 
     let plugin = useRef(null);
     let running = useRef(false);
+    let restart = useRef(null);
 
     // Exposed method: init
     const init = useCallback(() => {
@@ -16,7 +17,7 @@ const useJanus = (serverUrl, pin, videoEl) => {
         // Janus callback method
         const janusCallback = () => {
 
-            let rerunInit = null, janus = null, mediaAttached = false;
+            let janus = null, mediaAttached = false;
 
             janus = new Janus({
                 server: serverUrl,
@@ -77,11 +78,11 @@ const useJanus = (serverUrl, pin, videoEl) => {
                     console.log(error);
 
                     // Reinit gracefully
-                    if (rerunInit === null) {
-                        rerunInit = setTimeout(() => {
+                    if (restart.current === null) {
+                        restart.current = setTimeout(() => {
                             console.log("Rerunning init()...");
                             initJanus();
-                            rerunInit = null;
+                            restart.current = null;
                         }, 1000);
                     }
                 }
@@ -147,6 +148,11 @@ const useJanus = (serverUrl, pin, videoEl) => {
 
     }, [serverUrl, pin, videoEl]);
 
+    const cleanUp = useCallback(() => {
+        clearTimeout(restart.current);
+        restart.current = null;
+    },[]);
+
     // Exposed method: Watch stream
     const watchStream = useCallback( (streamId) => {
         if (plugin.current === null)
@@ -167,9 +173,10 @@ const useJanus = (serverUrl, pin, videoEl) => {
 
     return useMemo( () => ( {
         init: init,
+        cleanUp: cleanUp,
         availableStreams: availableStreams,
         watchStream: watchStream
-    }), [init,availableStreams,watchStream] );
+    }), [init,availableStreams,watchStream,cleanUp] );
 };
 
 export default useJanus;

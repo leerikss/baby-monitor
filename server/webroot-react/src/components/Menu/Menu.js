@@ -9,7 +9,10 @@ const Menu = (props) => {
     return (
         <div className={classes.Menu}>
             <JanusStreamSelector />
-            <MusicSelector />
+            <MusicSelector
+                password={props.password}
+                serverUrl={process.env.REACT_APP_MUSIC_PLAYER_URL}
+            />
         </div>
     );
 }

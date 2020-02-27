@@ -9,7 +9,6 @@ const Animator = (props) => {
         <CSSTransition
             in={props.show}
             mountOnEnter
-            unmountOnExit
             enter={true}
             exit={true}
             timeout={DURATION}

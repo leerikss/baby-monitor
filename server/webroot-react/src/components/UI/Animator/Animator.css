@@ -1,21 +1,32 @@
 .fade-slide-enter {
+    display: block;
     opacity: 0;
-    transform: translateX(-100%);
+    transform: scaleX(0) scaleY(0);
 }
 
 .fade-slide-enter-active {
     opacity: 1;
-    transform: translateX(0%);
+    transform: scaleX(1) scaleY(1);
     transition: all 500ms ease-in;
+}
+
+.fade-slide-enter-done {
+    opacity: 1;
+    display: block;
 }
 
 .fade-slide-exit {
     opacity: 1;
-    transform: translateX(0%);
+    transform: scaleX(1) scaleY(1);
 }
 
 .fade-slide-exit-active {
     opacity: 0;
-    transform: translateX(-100%);
+    transform: scaleX(0) scaleY(0);
     transition: all 500ms ease-out;
+}
+
+.fade-slide-exit-done {
+    opacity: 0;
+    display: none;
 }

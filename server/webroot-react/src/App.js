@@ -31,7 +31,7 @@ function App() {
             </Animator>
 
             <Animator show={state.menuOpen}>
-                <Menu />
+                <Menu password={password} />
             </Animator>
 
         </div>
