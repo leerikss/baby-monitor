@@ -10,39 +10,37 @@ export const JanusVideo = (props) => {
 
     const [uiState, uiDispatch] = useContext(AppContext);
     const [janusState, janusDispatch] = useContext(JanusContext);
-    const janusDispatchRef = useRef(janusDispatch); // Due to useEffect()...
 
-    const { availableStreams, watchStream } = useJanus(props.serverUrl, props.pin, videoEl);
-    const watchStreamRef = useRef(watchStream); // Due to useEffect()...
+    const { init, availableStreams, watchStream } = useJanus(props.serverUrl, props.pin, videoEl);
+
+    // Init janus
+    useEffect(() => {
+        init();
+    },[init]);
 
     // Janus available Streams changed => dispacth context
     useEffect(() => {
         if (availableStreams.length === 0)
             return;
-
         // Dispacth first stream as current stream
         const currentStreamId = parseInt(availableStreams[0].id);
-        janusDispatchRef.current({
+        janusDispatch({
             type: JanusContextActions.SET_CURRENT_STREAM_ID,
             streamId: currentStreamId
         })
-
         // Dispatch available streams
-        janusDispatchRef.current({
+        janusDispatch({
             type: JanusContextActions.SET_STREAMS,
             streams: availableStreams
         });
-
-    }, [availableStreams]);
+    }, [availableStreams, janusDispatch]);
 
     // Janus current stream changed => watch it
     useEffect(() => {
         if (janusState.currentStreamId === null)
             return;
-
-        watchStreamRef.current(parseInt(janusState.currentStreamId));
-        
-    }, [janusState.currentStreamId]);
+            watchStream(parseInt(janusState.currentStreamId));
+    }, [janusState.currentStreamId, watchStream]);
 
     // Play/pause video
     useEffect(() => {
