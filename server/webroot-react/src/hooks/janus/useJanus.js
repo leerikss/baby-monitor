@@ -18,8 +18,8 @@ const useJanus = (serverUrl, pin, videoEl) => {
         init.current();
     }, [pin]);
 
-    // Change active Stream
-    const setCurrentStream = (streamId) => {
+    // Watch stream
+    const watchStream = (streamId) => {
         if (plugin === null)
             return;
 
@@ -167,7 +167,7 @@ const useJanus = (serverUrl, pin, videoEl) => {
 
     return {
         availableStreams: availableStreams,
-        setCurrentStream: setCurrentStream
+        watchStream: watchStream
     }
 }
 

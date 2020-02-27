@@ -12,8 +12,8 @@ export const JanusVideo = (props) => {
     const [janusState, janusDispatch] = useContext(JanusContext);
     const janusDispatchRef = useRef(janusDispatch); // Due to useEffect()...
 
-    const { availableStreams, setCurrentStream } = useJanus(props.serverUrl, props.pin, videoEl);
-    const setCurrentStreamRef = useRef(setCurrentStream); // Due to useEffect()...
+    const { availableStreams, watchStream } = useJanus(props.serverUrl, props.pin, videoEl);
+    const watchStreamRef = useRef(watchStream); // Due to useEffect()...
 
     // Janus available Streams changed => dispacth context
     useEffect(() => {
@@ -40,10 +40,8 @@ export const JanusVideo = (props) => {
         if (janusState.currentStreamId === null)
             return;
 
-        setCurrentStreamRef.current(
-            parseInt(janusState.currentStreamId)
-        );
-
+        watchStreamRef.current(parseInt(janusState.currentStreamId));
+        
     }, [janusState.currentStreamId]);
 
     // Play/pause video
