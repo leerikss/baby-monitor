@@ -20,6 +20,7 @@ const useJanus = (serverUrl, pin, videoEl) => {
             let janus = null, mediaAttached = false;
 
             janus = new Janus({
+                
                 server: serverUrl,
 
                 success: () => {
@@ -154,7 +155,11 @@ const useJanus = (serverUrl, pin, videoEl) => {
     },[]);
 
     // Exposed method: Watch stream
-    const watchStream = useCallback( (streamId) => {
+    const watchStream = useCallback((streamId) => {
+        
+        console.log("Running:");
+        console.log(running.current);
+
         if (plugin.current === null)
             return;
 

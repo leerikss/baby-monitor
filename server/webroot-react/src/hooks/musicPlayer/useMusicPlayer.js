@@ -9,19 +9,18 @@ export const MusicPlayerStatus = {
     UNAVAILABLE: "UNAVAILABLE"
 }
 
-const useMusicPlayer = (url,password) => {
+const useMusicPlayer = (url, password) => {
 
     const [status, setStatus] = useState(MusicPlayerStatus.UNAVAILABLE);
     const [songs, setSongs] = useState([]);
 
     const socket = useRef(null);
     const reconnect = useRef(null);
-    
+
     const cleanUp = useCallback(() => {
-        console.log("clearInterval()");
         clearInterval(reconnect.current);
         reconnect.current = null;
-    },[]);
+    }, []);
 
     const send = useCallback((msg) => {
         if (socket.current.readyState === 1) {
@@ -29,7 +28,7 @@ const useMusicPlayer = (url,password) => {
             console.log(msg);
             socket.current.send(JSON.stringify(msg));
         }
-    },[]);
+    }, []);
 
     const init = useCallback(() => {
 
@@ -42,13 +41,13 @@ const useMusicPlayer = (url,password) => {
 
         socket.current.onclose = event => {
             console.log("WebSocket closed. Attempting to reconnect...");
-            setStatus(MusicPlayerStatus.WS_CLOSED);
+            setStatus(MusicPlayerStatus.UNAVAILABLE);
             if (reconnect.current === null) {
                 reconnect.current = setInterval(init, 3000);
             }
-        }        
+        }
 
-        socket.current.onmessage = function(event) {
+        socket.current.onmessage = function (event) {
 
             var msg = JSON.parse(event.data);
 
@@ -56,11 +55,8 @@ const useMusicPlayer = (url,password) => {
             console.log(msg);
 
             // Handle receivers list
-            if (msg.receivers !== undefined) {
-                if (msg.receivers.length === 0)
-                    setStatus(MusicPlayerStatus.UNAVAILABLE);
-                else
-                    setStatus(MusicPlayerStatus.AVAILABLE);
+            if (msg.receivers !== undefined && msg.receivers.length > 0) {
+                setStatus(MusicPlayerStatus.AVAILABLE);
                 send({ "request": "list_songs" });
             }
 
@@ -82,17 +78,17 @@ const useMusicPlayer = (url,password) => {
                         if (msg.status === "stopped")
                             setStatus(MusicPlayerStatus.STOPPED);
                         break;
-                    
+
                     default:
                         console.log("Received unknown msg:");
                         console.log(msg);
                         break;
                 }
             }
-        }        
+        }
     }, [url, password, setSongs, cleanUp, send]);
 
-    const play = useCallback( (song) => {
+    const play = useCallback((song) => {
         send({
             "request": "play",
             "song": song
@@ -106,7 +102,7 @@ const useMusicPlayer = (url,password) => {
         });
         setStatus(MusicPlayerStatus.STOP);
     }, [send]);
-    
+
     return useMemo(() => ({
         init: init,
         cleanUp: cleanUp,
