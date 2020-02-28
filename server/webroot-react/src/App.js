@@ -26,8 +26,9 @@ function App() {
 
             <Animator show={!showLoginForm}>
                 <VideoStream
-                    pin={password}
-                    serverUrl={process.env.REACT_APP_JANUS_SERVER_URL} />
+                    password={password}
+                    janusUrl={process.env.REACT_APP_JANUS_SERVER_URL}
+                    turnUrl={process.env.REACT_APP_TURN_SERVER_URL} />
             </Animator>
 
             <Animator show={state.menuOpen}>

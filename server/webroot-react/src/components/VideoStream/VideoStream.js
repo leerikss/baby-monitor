@@ -10,8 +10,9 @@ const VideoStream = (props) => {
     return (
         <div className={classes.VideoStream}>
             <JanusVideo
-                serverUrl={props.serverUrl}
-                pin={props.pin} />
+                janusUrl={props.janusUrl}
+                turnUrl={props.turnUrl}
+                password={props.password} />
             <VideoControls />
         </div>
     )

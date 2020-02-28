@@ -3,7 +3,7 @@ import { useMemo, useCallback, useState, useRef } from 'react';
 
 export const STREAM_TTL_MS = 5000;
 
-const useJanus = (serverUrl, pin, videoEl) => {
+const useJanus = (janusUrl, turnUrl, password, videoEl) => {
 
     const [availableStreams, setAvailableStreams] = useState([]);
 
@@ -19,9 +19,22 @@ const useJanus = (serverUrl, pin, videoEl) => {
 
             let janus = null, mediaAttached = false;
 
+            const iceServers = turnUrl && turnUrl.length && [
+                {
+                    url: turnUrl,
+                    username: 'babymonitor',
+                    credential: password,
+                }
+            ];
+
+            console.log("iceServers:");
+            console.log(iceServers);
+
             janus = new Janus({
                 
-                server: serverUrl,
+                server: janusUrl,
+
+                iceServers: iceServers,
 
                 success: () => {
                     janus.attach({
@@ -93,7 +106,7 @@ const useJanus = (serverUrl, pin, videoEl) => {
                 const msg = {
                     "message": {
                         ...message,
-                        pin: pin
+                        pin: password
                     },
                     ...extra
                 };
@@ -120,7 +133,7 @@ const useJanus = (serverUrl, pin, videoEl) => {
 
             const createAnswer = (jsep) => {
                 const msg = {
-                    "pin": pin,
+                    "pin": password,
                     "jsep": jsep,
                     "media": { "audioSend": false, "videoSend": false },
                     "success": (jsep) => request({ "request": "start" }, { jsep: jsep }),
@@ -147,7 +160,7 @@ const useJanus = (serverUrl, pin, videoEl) => {
 
         initJanus();
 
-    }, [serverUrl, pin, videoEl]);
+    }, [janusUrl, turnUrl, password, videoEl]);
 
     const cleanUp = useCallback(() => {
         clearTimeout(restart.current);
@@ -167,14 +180,14 @@ const useJanus = (serverUrl, pin, videoEl) => {
             "message": {
                 "request": (!running.current) ? "watch" : "switch",
                 "id": streamId,
-                pin: pin
+                pin: password
             }
         };
         plugin.current.send(msg);
         console.log("setCurrentStream():");
         console.log(msg);
 
-    }, [pin,plugin,running] );
+    }, [plugin,password,running] );
 
     return useMemo( () => ( {
         init: init,

@@ -11,7 +11,7 @@ export const JanusVideo = (props) => {
     const [uiState, uiDispatch] = useContext(AppContext);
     const [janusState, janusDispatch] = useContext(JanusContext);
 
-    const { init, cleanUp, availableStreams, watchStream } = useJanus(props.serverUrl, props.pin, videoEl);
+    const { init, cleanUp, availableStreams, watchStream } = useJanus(props.janusUrl, props.turnUrl, props.password, videoEl);
 
     // Init janus
     useEffect(() => {
