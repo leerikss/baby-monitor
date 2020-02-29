@@ -19,13 +19,16 @@ const useJanus = (janusUrl, turnUrl, password, videoEl) => {
 
             let janus = null, mediaAttached = false;
 
-            const iceServers = turnUrl && turnUrl.length && [
+            const iceServers = turnUrl && turnUrl.length &&[
                 {
                     url: turnUrl,
                     username: 'babymonitor',
                     credential: password,
                 }
             ];
+
+            console.log("iceServers:");
+            console.log(iceServers);
 
             janus = new Janus({
                 

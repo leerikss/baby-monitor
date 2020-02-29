@@ -24,7 +24,14 @@ const janusPlayer = function() {
         janus = new Janus({
 
             server: config.url,
-
+	    iceServers: [
+		{
+                    url: config.turnUrl,
+                    username: 'babymonitor',
+                    credential: config.pin,
+                }
+	    ],
+	    
             success: function() {
 
                 janus.attach({
