@@ -119,11 +119,22 @@ function config_janus() {
     sudo systemctl start janus
 }
 
+function install_turnserver() {
+    sudo apt-get install -y coturn
+    sudo -E sh -c 'envsubst < conf/turnserver/turnserver.conf.template > /etc/turnserver.conf'
+    sudo cp $BASEDIR/conf/systemd/turnserver.service /etc/systemd/system
+    sudo systemctl reenable turnserver
+    sudo systemctl start turnserver
+}
+
+# TODO: npm deploy react app & config nginx
+
 install_node
 install_ws_proxy
 install_nginx
 install_certbot
 install_janus
+install_turnserver
 config_janus
 
 set +a
