@@ -1,0 +1,12 @@
+[Unit]
+Description=turnserver - coturn TURN server
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/turnserver -c /etc/turnserver.conf -o --no-stdout-log
+Type=forking
+PIDFile=/var/run/turnserver.pid
+Restart=always
+
+[Install]
+WantedBy=default.target
