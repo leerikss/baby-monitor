@@ -137,7 +137,7 @@ const UI = function() {
         // Init JS libs
         janusPlayer.init({
             url: config.urls.janus,
-	    turnUrl: config.urls.turn,
+	    turnUrl: ( $("#turn").is(':checked') ) ? config.urls.turn : null,
             pin: token,
             elVideo: config.dom.video,
             elStreams: config.dom.streams
