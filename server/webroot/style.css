@@ -67,8 +67,15 @@ input[type=password] {
     border: 3px solid #bbb;
 }
 
+input[type=checkbox] {
+    width: auto;
+}
+
+span {
+    color: #fff;
+}
+
 input[type=submit] {
-    margin-top: 20px;
     color: #333;
     background: #fdfdfd;
     background: linear-gradient(to bottom, #fdfdfd 0%, #bebebe 100%);
