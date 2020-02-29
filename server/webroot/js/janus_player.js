@@ -21,15 +21,19 @@ const janusPlayer = function() {
 
     function callback() {
 
+	const iceServers = null;
+	if(config.turnUrl)
+	    iceServers = [{
+                url: config.turnUrl,
+                username: 'babymonitor',
+                credential: config.pin
+            }];
+	
         janus = new Janus({
 
             server: config.url,
 	    
-	    iceServers: : (config.turnUrl) ? [{
-                url: config.turnUrl,
-                username: 'babymonitor',
-                credential: config.pin,
-            }] : null,
+	    iceServers: iceServers,
 					       
             success: function() {
 
