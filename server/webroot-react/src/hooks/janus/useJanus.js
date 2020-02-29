@@ -27,9 +27,6 @@ const useJanus = (janusUrl, turnUrl, password, videoEl) => {
                 }
             ];
 
-            console.log("iceServers:");
-            console.log(iceServers);
-
             janus = new Janus({
                 
                 server: janusUrl,

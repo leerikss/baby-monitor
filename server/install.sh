@@ -134,7 +134,7 @@ install_ws_proxy
 install_nginx
 install_certbot
 install_janus
-install_turnserver
+# install_turnserver
 config_janus
 
 set +a
