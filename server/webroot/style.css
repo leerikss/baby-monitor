@@ -70,9 +70,11 @@ input[type=password] {
 input[type=checkbox] {
     width: auto;
     display: inline;
+    vertical-align: inherit;    
 }
 
 label {
+    vertical-align: middle;
     font-family: sans-serif;    
     color: #fff;
 }
