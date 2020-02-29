@@ -21,7 +21,7 @@ const janusPlayer = function() {
 
     function callback() {
 
-	const iceServers = null;
+	let iceServers = null;
 	if(config.turnUrl)
 	    iceServers = [{
                 url: config.turnUrl,

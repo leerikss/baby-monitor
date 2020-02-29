@@ -69,9 +69,10 @@ input[type=password] {
 
 input[type=checkbox] {
     width: auto;
+    display: inline;
 }
 
-span {
+label {
     color: #fff;
 }
 
