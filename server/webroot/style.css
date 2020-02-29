@@ -73,10 +73,12 @@ input[type=checkbox] {
 }
 
 label {
+    font-family: sans-serif;    
     color: #fff;
 }
 
 input[type=submit] {
+    margin-top: 20px;
     color: #333;
     background: #fdfdfd;
     background: linear-gradient(to bottom, #fdfdfd 0%, #bebebe 100%);
