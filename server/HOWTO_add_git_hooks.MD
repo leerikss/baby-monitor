@@ -45,24 +45,29 @@ Create the git hook for deploying upon push
 -------------------------------------------
 - /home/git/baby-monitor.git/hooks/post-receive:
 ```
-#!/bin/bash
+#!/bin/bash                                                                                                                        
 TARGET="/opt/baby-monitor"
 GIT_DIR="/home/git/baby-monitor.git"
 BRANCH="master"
 
 while read oldrev newrev ref
 do
-	# only checking out the master (or whatever branch you would like to deploy)
-	if [ "$ref" = "refs/heads/$BRANCH" ];
-	then
-		echo "Ref $ref received. Deploying ${BRANCH} branch to production..."
-		git --work-tree=$TARGET --git-dir=$GIT_DIR checkout -f $BRANCH
+        # only checking out the master (or whatever branch you would like to deploy)                                               
+        if [ "$ref" = "refs/heads/$BRANCH" ];
+        then
+                echo "Ref $ref received. Deploying ${BRANCH} branch to production..."
+                git --work-tree=$TARGET --git-dir=$GIT_DIR checkout -f $BRANCH
 
-        echo "Restarting websocket-proxy"
-        sudo systemctl restart websocket-proxy        
-	else
-		echo "Ref $ref received. Doing nothing: only the ${BRANCH} branch may be deployed on this server."
-	fi
+                # Building the website                                                                                             
+                echo "Building the website"
+                cd $TARGET/server/webroot-react
+                npm run build
+
+                echo "Restarting websocket-proxy"
+                sudo systemctl restart websocket-proxy
+        else
+                echo "Ref $ref received. Doing nothing: only the ${BRANCH} branch may be deployed on this server."
+        fi
 done
 ```
 
