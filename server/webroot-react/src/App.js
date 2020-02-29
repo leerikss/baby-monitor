@@ -5,6 +5,7 @@ import VideoStream from './components/VideoStream/VideoStream';
 import { AppContext } from './context/AppContext';
 import Animator from './components/UI/Animator/Animator';
 import Menu from './components/Menu/Menu';
+import Helmet from 'react-helmet';
 
 function App() {
 
@@ -20,6 +21,11 @@ function App() {
     return (
         <div className="App">
 
+            <Helmet>
+                <title>Baby Monitor</title>
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+            </Helmet>
+            
             <Animator show={showLoginForm}>
                 <LoginForm submit={submitHandler} />
             </Animator>
