@@ -52,15 +52,17 @@ BRANCH="master"
 
 while read oldrev newrev ref
 do
-        # only checking out the master (or whatever branch you would like to deploy)                                               
+        # only checking out the master (or whatever branch you would like to deploy)
         if [ "$ref" = "refs/heads/$BRANCH" ];
+		
         then
                 echo "Ref $ref received. Deploying ${BRANCH} branch to production..."
                 git --work-tree=$TARGET --git-dir=$GIT_DIR checkout -f $BRANCH
 
-                # Building the website                                                                                             
+                # Building the website
                 echo "Building the website"
                 cd $TARGET/server/webroot-react
+				npm i
                 npm run build
 
                 echo "Restarting websocket-proxy"
