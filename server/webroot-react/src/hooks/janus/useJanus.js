@@ -3,7 +3,7 @@ import { useMemo, useCallback, useState, useRef } from 'react';
 
 export const STREAM_TTL_MS = 5000;
 
-const useJanus = (janusUrl, turnUrl, password, videoEl) => {
+const useJanus = (janusUrl, password, videoEl, useTurn, turnUrl) => {
 
     const [availableStreams, setAvailableStreams] = useState([]);
 
@@ -19,7 +19,7 @@ const useJanus = (janusUrl, turnUrl, password, videoEl) => {
 
             let janus = null, mediaAttached = false;
 
-            const iceServers = turnUrl && turnUrl.length &&[
+            const iceServers = useTurn && turnUrl && turnUrl.length &&[
                 {
                     url: turnUrl,
                     username: 'babymonitor',
@@ -160,7 +160,7 @@ const useJanus = (janusUrl, turnUrl, password, videoEl) => {
 
         initJanus();
 
-    }, [janusUrl, turnUrl, password, videoEl]);
+    }, [janusUrl, turnUrl, password, videoEl, useTurn]);
 
     const cleanUp = useCallback(() => {
         clearTimeout(restart.current);

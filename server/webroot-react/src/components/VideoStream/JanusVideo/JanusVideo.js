@@ -11,15 +11,19 @@ export const JanusVideo = (props) => {
     const [uiState, uiDispatch] = useContext(AppContext);
     const [janusState, janusDispatch] = useContext(JanusContext);
 
-    const { init, cleanUp, availableStreams, watchStream } = useJanus(props.janusUrl, props.turnUrl, props.password, videoEl);
+    const { init, cleanUp, availableStreams, watchStream } = useJanus(
+        props.janusUrl, props.password, videoEl,
+        props.useTurn, props.turnUrl);
 
-    // Init janus
+    // Init
     useEffect(() => {
+
         init();
+
         return () => {
             cleanUp();
         }
-    },[init,cleanUp]);
+    }, [init, cleanUp]);
 
     // Janus available Streams changed => dispacth context
     useEffect(() => {
@@ -42,7 +46,7 @@ export const JanusVideo = (props) => {
     useEffect(() => {
         if (janusState.currentStreamId === null)
             return;
-            watchStream(parseInt(janusState.currentStreamId));
+        watchStream(parseInt(janusState.currentStreamId));
     }, [janusState.currentStreamId, watchStream]);
 
     // Play/pause video
@@ -58,9 +62,17 @@ export const JanusVideo = (props) => {
         videoEl.current.muted = uiState.videoMuted;
     }, [uiState.videoMuted]);
 
+    // Center scroll X
+    const videoLoadedHandler = () => {
+        const videoWidth = videoEl.current.getBoundingClientRect().width;
+        const scrollLeft = (videoWidth / 2) - (window.outerWidth / 2);
+        videoEl.current.parentElement.scrollLeft = scrollLeft;
+    };
+
     return (
         <video
             ref={videoEl}
+            onLoadedData={videoLoadedHandler}
             style={{
                 height: `${uiState.videoHeight}vh`
             }}

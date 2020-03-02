@@ -11,6 +11,7 @@ const VideoStream = (props) => {
         <div className={classes.VideoStream}>
             <JanusVideo
                 janusUrl={props.janusUrl}
+                useTurn={props.useTurn}
                 turnUrl={props.turnUrl}
                 password={props.password} />
             <VideoControls />
