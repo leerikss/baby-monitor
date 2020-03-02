@@ -42,8 +42,8 @@ function install_nginx() {
 
     sudo cp conf/nginx/nginx.conf.template "/etc/nginx/sites-available/$domain"
     domain=$(sed_esc "$domain")
-    wwwhome="$repo/server/webroot"
-    webroot=$(sed_esc "$wwwhome")
+    wwwhome="$repo/server/webroot-react"
+    webroot=$(sed_esc "$wwwhome-react")
     sudo sed -i -e "s/\$domain/$domain/" -e "s/\$webroot/$webroot/" "/etc/nginx/sites-available/$domain"
     sudo ln -s "/etc/nginx/sites-available/$domain" "/etc/nginx/sites-enabled/$domain"
 }
@@ -127,14 +127,20 @@ function install_turnserver() {
     sudo systemctl start turnserver
 }
 
-# TODO: npm deploy react app & config nginx
+function install_ui() {
+    sudo -E sh -c 'envsubst < conf/webroot/.env.template > "$repo/server/webroot-react"'
+    cd "$repo/server/webroot-react"
+    npm i
+    npm run build
+}
 
 install_node
 install_ws_proxy
 install_nginx
 install_certbot
 install_janus
-# install_turnserver
+install_turnserver
+install_ui
 config_janus
 
 set +a
