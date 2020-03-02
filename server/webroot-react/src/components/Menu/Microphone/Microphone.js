@@ -21,7 +21,8 @@ const Microphone = (props) => {
     // React on status changes
     useEffect(() => {
         switch (status) {
-            // TODO: Hide if UNAVAILABLE
+            case MicrophoneStatus.UNAVAILABLE:
+                break;
             case MicrophoneStatus.RECORDING:
                 btnRef.current.src = Stop;
                 break;
@@ -40,14 +41,16 @@ const Microphone = (props) => {
             record();
     }
 
-    return (
+    const content = status && status !== MicrophoneStatus.UNAVAILABLE && (
         <img
             ref={btnRef}
             className={classes.Microphone}
             onClick={toggleRecordHandler}
             alt="Record/Stop"
             src={Record} />
-    )
+    );
+
+    return content;
 }
 
 export default Microphone;

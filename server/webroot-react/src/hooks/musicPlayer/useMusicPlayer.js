@@ -55,9 +55,12 @@ const useMusicPlayer = (url, password) => {
             console.log(msg);
 
             // Handle receivers list
-            if (msg.receivers !== undefined && msg.receivers.length > 0) {
-                setStatus(MusicPlayerStatus.AVAILABLE);
-                send({ "request": "list_songs" });
+            if (msg.receivers !== undefined) {
+                if (msg.receivers.length > 0) {
+                    setStatus(MusicPlayerStatus.AVAILABLE);
+                    send({ "request": "list_songs" });
+                } else
+                    setStatus(MusicPlayerStatus.UNAVAILABLE);
             }
 
             // Handle server messages

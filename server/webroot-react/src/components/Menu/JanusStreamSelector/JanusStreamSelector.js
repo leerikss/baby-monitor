@@ -28,15 +28,15 @@ const JanusStreamSelector = () => {
         })
     }
 
-    const hide = options && options.length === 0 && classes.Hide;
-
-    return (
+    const content = options && options.length > 0 && (
         <select value={state.currentStreamId}
             onChange={selectChangeHandler}
-            className={`${classes.JanusStreamSelector} ${hide}`}>
+            className={`${classes.JanusStreamSelector}`}>
             {options}
         </select>
-    )
+    );
+
+    return content;
 }
 
 export default JanusStreamSelector

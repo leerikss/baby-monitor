@@ -39,7 +39,8 @@ const MusicSelector = (props) => {
     // React on status changes
     useEffect(() => {
         switch (status) {
-            // TODO: Hide if UNAVAILABLE
+            case MusicPlayerStatus.UNAVAILABLE:
+                return;
             case MusicPlayerStatus.PLAYING:
                 btnRef.current.src = StopSong;
                 break;
@@ -62,7 +63,7 @@ const MusicSelector = (props) => {
             play(selectedSongId);
     }
 
-    return (
+    const content = status && status !== MusicPlayerStatus.UNAVAILABLE && (
         <div className={classes.MusicSelector}>
             <select
                 onChange={selectChangeHandler}>
@@ -74,7 +75,10 @@ const MusicSelector = (props) => {
                 alt="Play/Stop Song"
                 src={PlaySong} />
         </div>
-    )
+    );
+
+
+    return content;
 }
 
 export default MusicSelector

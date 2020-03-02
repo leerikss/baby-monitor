@@ -57,8 +57,12 @@ const useMicrophone = (url, password) => {
             console.log(msg);
 
             // Handle receivers list
-            if (msg.receivers !== undefined && msg.receivers.length > 0)
-                setStatus(MicrophoneStatus.AVAILABLE);
+            if (msg.receivers !== undefined) {
+                if (msg.receivers.length > 0)
+                    setStatus(MicrophoneStatus.AVAILABLE);
+                else
+                    setStatus(MicrophoneStatus.UNAVAILABLE);
+            }
         }
     }, [url, password, cleanUp]);
 
