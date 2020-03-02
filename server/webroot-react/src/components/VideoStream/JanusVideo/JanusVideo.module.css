@@ -2,9 +2,10 @@
     border: 1px solid black;
     box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 1);
     transition: height .5s, width .5s;
-
+    /*
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);    
+    */
 }
