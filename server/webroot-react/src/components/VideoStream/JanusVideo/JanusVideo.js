@@ -69,13 +69,16 @@ export const JanusVideo = (props) => {
         videoEl.current.parentElement.scrollLeft = scrollLeft;
     };
 
+    const style = (window.innerHeight > window.innerWidth) ? {
+        height: uiState.videoHeight + "vh"
+    } : {
+            width: uiState.videoHeight + "vw"
+    }
     return (
         <video
             ref={videoEl}
             onLoadedData={videoLoadedHandler}
-            style={{
-                height: `${uiState.videoHeight}vh`
-            }}
+            style={style}
             className={classes.Video}
             autoPlay
             onPlay={() => { uiDispatch({ type: AppContextActions.VIDEO_PLAYING }) }}

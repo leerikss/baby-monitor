@@ -20,9 +20,8 @@ export const ButtonType = {
     PAUSE: 'pause',
     MENU: 'menu'
 }
-    
-const Button = (props) => {
 
+const Button = (props) => {
 
     let src = null;
     switch (props.type) {

@@ -24,3 +24,7 @@
     background-position: left 1em top 50%, right 1em top 50%;
     background-size: 3em auto, 2em auto;
 }
+
+.Hide {
+    display: none;
+}

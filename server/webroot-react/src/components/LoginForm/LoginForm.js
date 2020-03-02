@@ -19,11 +19,12 @@ export const LoginForm = (props) => {
                 ref={passwordInput}
                 type="password"
                 autoComplete="on"
+                placeholder="Password"
                 autoFocus />
             <label className={classes.Label}>
                 <input
                     ref={turnCheckbox}
-                    type="checkbox" />&nbsp;Use TURN Server
+                    type="checkbox" />&nbsp;Use a TURN Server
                 </label>
             <input type="submit" value="Login" />
         </form>

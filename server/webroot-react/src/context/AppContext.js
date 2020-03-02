@@ -5,6 +5,8 @@ const AppContext = createContext();
 const AppContextActions = {
     OPEN_MENU: 'OPEN_MENU',
     CLOSE_MENU: 'CLOSE_MENU',
+    OPEN_CONTROLS: 'OPEN_CONTROLS',
+    CLOSE_CONTROLS: 'CLOSE_CONTROLS',
     ZOOM_VIDEO: 'ZOOM_VIDEO',
     MUTE_VIDEO: 'MUTE_VIDEO',
     UNMUTE_VIDEO: 'UNMUTE_VIDEO',
@@ -25,7 +27,8 @@ const initialState = {
     videoState: VideoStates.PAUSED,
     videoMuted: false,
     videoHeight: 100,
-    menuOpen: false
+    menuOpen: false,
+    controlsOpen: false
 };
 
 const reducer = (state, action) => {
@@ -34,7 +37,12 @@ const reducer = (state, action) => {
         case AppContextActions.OPEN_MENU:
             return { ...state, menuOpen: true }
         case AppContextActions.CLOSE_MENU:
-                return { ...state, menuOpen: false}
+            return { ...state, menuOpen: false }
+
+        case AppContextActions.OPEN_CONTROLS:
+            return { ...state, controlsOpen: true }
+        case AppContextActions.CLOSE_CONTROLS:
+            return { ...state, controlsOpen: false }
 
         case AppContextActions.ZOOM_VIDEO:
             return { ...state, videoHeight: state.videoHeight + action.zoom }
@@ -61,7 +69,7 @@ const reducer = (state, action) => {
 const AppContextProvider = (props) => {
 
     const [state, dispatch] = useReducer(reducer, initialState);
-    const value = [ state, dispatch ]
+    const value = [state, dispatch]
 
     return (
         <AppContext.Provider value={value}>

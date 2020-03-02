@@ -2,33 +2,30 @@
     padding: 20px;
     max-width: 800px;
     margin: auto;   
+    text-align: center;    
 }
 
 .LoginForm input {
-    display: block;
-    box-sizing: border-box;
-
     font-weight: bold;
     font-size: 1em;
-
-    width: 100%;
     height: 40px;
-    
-    padding: 0px;
-    margin: 0px;
+    width: 100%;
 }
 
 .LoginForm input[type=password] {
     border: 3px solid #bbb;
+    text-align: center;
 }
 
 .LoginForm input[type=checkbox] {
-    width: auto;
-    display: inline;
+    width: 20px;
+    display: initial;
     vertical-align: inherit;    
 }
 
 .LoginForm input[type=submit] {
+    margin: auto;
+    width: 80%;
     margin-top: 20px;
     color: #333;
     background: #fdfdfd;
@@ -38,6 +35,7 @@
 }
 
 .Label {
+    display: block;
     vertical-align: middle;
     font-family: sans-serif;    
     color: #fff;
