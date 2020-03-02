@@ -5,8 +5,8 @@ const AppContext = createContext();
 const AppContextActions = {
     OPEN_MENU: 'OPEN_MENU',
     CLOSE_MENU: 'CLOSE_MENU',
-    OPEN_CONTROLS: 'OPEN_CONTROLS',
-    CLOSE_CONTROLS: 'CLOSE_CONTROLS',
+    MOUSE_DOWN: 'MOUSE_DOWN',
+    MOUSE_UP: 'MOUSE_UP',
     ZOOM_VIDEO: 'ZOOM_VIDEO',
     MUTE_VIDEO: 'MUTE_VIDEO',
     UNMUTE_VIDEO: 'UNMUTE_VIDEO',
@@ -39,10 +39,10 @@ const reducer = (state, action) => {
         case AppContextActions.CLOSE_MENU:
             return { ...state, menuOpen: false }
 
-        case AppContextActions.OPEN_CONTROLS:
-            return { ...state, controlsOpen: true }
-        case AppContextActions.CLOSE_CONTROLS:
+        case AppContextActions.MOUSE_DOWN:
             return { ...state, controlsOpen: false }
+        case AppContextActions.MOUSE_UP:
+            return { ...state, controlsOpen: true }
 
         case AppContextActions.ZOOM_VIDEO:
             return { ...state, videoHeight: state.videoHeight + action.zoom }

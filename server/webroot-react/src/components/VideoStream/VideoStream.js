@@ -18,12 +18,13 @@ const VideoStream = (props) => {
 
     useEffect(() => {
         if (state.controlsOpen) {
+
             if (timeout.current)
                 clearTimeout(timeout.current);
             
             timeout.current = setTimeout(() => {
                 timeout.current = null;
-                dispatch({ type: AppContextActions.CLOSE_CONTROLS });
+                dispatch({ type: AppContextActions.MOUSE_DOWN });
             }, HIDE_CONTROLS_MS);
 
             setShowControls(true);
@@ -31,7 +32,6 @@ const VideoStream = (props) => {
         else {
             if (!timeout.current)
                 setShowControls(false);
-            else clearTimeout(timeout.current);
         }
     }, [state.controlsOpen, dispatch]);
 

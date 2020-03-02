@@ -20,16 +20,14 @@ function App() {
     const showLoginForm = (password === null);
 
     const mouseDownHandler = () => {
-        console.log("mouse down");
-        uiDispatch({ type: AppContextActions.CLOSE_CONTROLS });
+        uiDispatch({ type: AppContextActions.MOUSE_DOWN });
     }
 
     const mouseUpHandler = () => {
-        uiDispatch({ type: AppContextActions.OPEN_CONTROLS });
+        uiDispatch({ type: AppContextActions.MOUSE_UP });
     }
 
     useEffect(() => {
-        // Bind the event listener
         document.addEventListener("mousedown", mouseDownHandler);
         document.addEventListener("mouseup", mouseUpHandler);
         return () => {
