@@ -1,8 +1,13 @@
 .Menu {
     position: fixed;
-    left: 3vw;
-    padding-right: 20px;
+
+    width: 95vw;
+
     max-width: 800px;
-    top: 3vh;
+    
+    top: 60px;
+    left: 0;
+    right: 0;
+    margin: auto;
 }
 
