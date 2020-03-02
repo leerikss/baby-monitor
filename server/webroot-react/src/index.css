@@ -11,6 +11,7 @@ body {
     background: linear-gradient(0deg, rgba(60, 60, 60, 1) 0%, rgba(20, 20, 20, 1) 100%);
 
     touch-action: pan-x pan-y;
+    -webkit-tap-highlight-color: transparent;
 }
 
 @media screen and (min-width: 960px) {
