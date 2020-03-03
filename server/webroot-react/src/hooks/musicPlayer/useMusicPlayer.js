@@ -33,7 +33,13 @@ const useMusicPlayer = (url, password) => {
     const init = useCallback(() => {
 
         // Define WebSocket
-        socket.current = new WebSocket(url + "?role=transmitter", password);
+        try {
+            socket.current = new WebSocket(url + "?role=transmitter", password);
+        } catch (e) {
+            console.error(e);
+            return;
+        }
+        
         socket.current.onopen = function (event) {
             console.log("WebSocket Connected!");
             cleanUp();

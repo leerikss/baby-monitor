@@ -30,10 +30,10 @@ const VideoStream = (props) => {
             setShowControls(true);
         }
         else {
-            if (!timeout.current)
+            if (!timeout.current && !state.menuOpen)
                 setShowControls(false);
         }
-    }, [state.controlsOpen, dispatch]);
+    }, [state.controlsOpen, state.menuOpen, dispatch]);
 
     return (
         <div className={classes.VideoStream}>

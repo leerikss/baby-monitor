@@ -10,7 +10,7 @@ function App() {
 
     const [password, setPassword] = useState(null);
     const [useTurn, setUseTurn] = useState(null);
-    const [ state,uiDispatch ] = useContext(AppContext);
+    const [state, uiDispatch] = useContext(AppContext);
 
     const submitHandler = (pass, useTurn) => {
         setPassword(pass);
@@ -31,11 +31,11 @@ function App() {
         document.addEventListener("mousedown", mouseDownHandler);
         document.addEventListener("mouseup", mouseUpHandler);
         return () => {
-          document.removeEventListener("mousedown", mouseDownHandler);
-          document.removeEventListener("mouseup", mouseUpHandler);
+            document.removeEventListener("mousedown", mouseDownHandler);
+            document.removeEventListener("mouseup", mouseUpHandler);
         };
     });
-    
+
     return (
         <div className="App">
 

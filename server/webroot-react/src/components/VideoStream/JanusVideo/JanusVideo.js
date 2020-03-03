@@ -27,8 +27,15 @@ export const JanusVideo = (props) => {
 
     // Janus available Streams changed => dispacth context
     useEffect(() => {
-        if (availableStreams.length === 0)
+
+        // Empty list
+        if (availableStreams.length === 0) {
+            janusDispatch({
+                type: JanusContextActions.SET_STREAMS,
+                streams: []
+            });
             return;
+        }
         // Dispacth first stream as current stream
         const currentStreamId = parseInt(availableStreams[0].id);
         janusDispatch({
@@ -73,17 +80,19 @@ export const JanusVideo = (props) => {
         height: uiState.videoHeight + "vh"
     } : {
             width: uiState.videoHeight + "vw"
-    }
+        }
     return (
-        <video
-            ref={videoEl}
-            onLoadedData={videoLoadedHandler}
-            style={style}
-            className={classes.Video}
-            autoPlay
-            onPlay={() => { uiDispatch({ type: AppContextActions.VIDEO_PLAYING }) }}
-            onPause={() => { uiDispatch({ type: AppContextActions.VIDEO_PAUSED }) }}
-            playsInline></video>
+        <div className={classes.VideoWrapper}>
+            <video
+                ref={videoEl}
+                onLoadedData={videoLoadedHandler}
+                style={style}
+                className={classes.Video}
+                autoPlay
+                onPlay={() => { uiDispatch({ type: AppContextActions.VIDEO_PLAYING }) }}
+                onPause={() => { uiDispatch({ type: AppContextActions.VIDEO_PAUSED }) }}
+                playsInline></video>
+        </div>
     );
 }
 

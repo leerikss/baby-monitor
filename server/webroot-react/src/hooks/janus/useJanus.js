@@ -58,6 +58,14 @@ const useJanus = (janusUrl, password, videoEl, useTurn, turnUrl) => {
                             console.log("onMessage():");
                             console.log(msg);
 
+                            const { error_code } = msg;
+                            // Unauthorized
+                            if (error_code === 457) {
+                                console.error(msg.error);
+                                setAvailableStreams([]);
+                                return;
+                            }
+
                             const { result } = msg;
                             if (result === undefined || result.status === undefined)
                                 return;
@@ -65,6 +73,7 @@ const useJanus = (janusUrl, password, videoEl, useTurn, turnUrl) => {
                             const { status } = result;
                             if (status === "preparing" && jsep !== undefined)
                                 createAnswer(jsep);
+                            
                         },
 
                         onremotestream: (stream) => {
