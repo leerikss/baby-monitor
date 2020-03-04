@@ -11,10 +11,12 @@ REACT_APP_TURN_SERVER_URL='turn:[your.domain]:3478?transport=udp'
 ~~~
 
 2) Build
+~~~terminal
 cd [github repo]/server/webroot-react]
 npm i
 npm run build
+~~~
 
-3) Point WebServer root to 
-[git repo root]/server/webroot-react/build
+3) Configure your WebServer root to point to:
+~~~[git repo root]/server/webroot-react/build~~~
 
