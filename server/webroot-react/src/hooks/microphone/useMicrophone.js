@@ -96,8 +96,8 @@ const useMicrophone = (url, password) => {
             .mediaDevices
             .getUserMedia({ audio: true, video: false })
             .then((stream) => {
-
                 mediaStream.current = stream;
+                const AudioContext = window.AudioContext || window.webkitAudioContext;
                 context.current = new AudioContext();
                 const source = context.current.createMediaStreamSource(stream);
                 const processor = context.current.createScriptProcessor(AUDIO_BUFFER, 1, 1);
