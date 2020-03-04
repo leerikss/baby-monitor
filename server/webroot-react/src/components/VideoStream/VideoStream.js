@@ -16,6 +16,7 @@ const VideoStream = (props) => {
 
     let timeout = useRef(null);
 
+    // Handle showing & hiding the Video Controls
     useEffect(() => {
         if (state.controlsOpen) {
 

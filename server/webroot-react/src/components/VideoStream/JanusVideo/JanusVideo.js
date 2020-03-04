@@ -28,14 +28,15 @@ export const JanusVideo = (props) => {
     // Janus available Streams changed => dispacth context
     useEffect(() => {
 
-        // Empty list
-        if (availableStreams.length === 0) {
+        // Dispatch Empty list
+        if (!availableStreams || availableStreams.length === 0) {
             janusDispatch({
                 type: JanusContextActions.SET_STREAMS,
                 streams: []
             });
             return;
         }
+
         // Dispacth first stream as current stream
         const currentStreamId = parseInt(availableStreams[0].id);
         janusDispatch({

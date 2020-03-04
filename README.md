@@ -46,4 +46,4 @@ Includes three different services:
 - A better solution for streaming the phone microphone audio data to the RPI speaker. Maybe integrate WebRTC two-way (UV4L?) instead of a dedicated WebSocket Audio Proxy
 - Improve security. Currently authentication is required to access the WebRTC live audio/video feeds, as well as for establishing WebSocket connections. The password however is currently static, and stored plaintext in Janus configuration, as well as in different NodeJS .env files on both the Server as well as on the Raspberrys.
 - Dockerize all the Services
-- The UI is written in vanilla HTML, JS and CSS; maybe integrate ReactJS and/or some other fancy framework(s)
+- ~~The UI is written in vanilla HTML, JS and CSS; maybe integrate ReactJS and/or some other fancy framework(s)~~. The UI was rewritten in React JS. The React JS webroot is [here](https://github.com/leerikss/baby-monitor/tree/master/server/webroot-react), but I also left the deprecated vanilla html/js/css version left for comparison [here](https://github.com/leerikss/baby-monitor/tree/master/server/webroot).
