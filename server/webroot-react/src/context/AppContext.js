@@ -28,7 +28,7 @@ const initialState = {
     videoMuted: false,
     videoHeight: 100,
     menuOpen: false,
-    controlsOpen: false
+    controlsOpen: true
 };
 
 const reducer = (state, action) => {

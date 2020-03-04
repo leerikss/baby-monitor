@@ -3,6 +3,7 @@ import { AppContext, AppContextActions, VideoStates } from '../../../context/App
 import { JanusContext, JanusContextActions } from '../../../context/JanusContext';
 import classes from './JanusVideo.module.css';
 import useJanus from '../../../hooks/janus/useJanus';
+import withMouseEvents from '../../../hoc/withMouseEvents';
 
 export const JanusVideo = (props) => {
 
@@ -97,4 +98,4 @@ export const JanusVideo = (props) => {
     );
 }
 
-export default JanusVideo;
+export default withMouseEvents(JanusVideo);

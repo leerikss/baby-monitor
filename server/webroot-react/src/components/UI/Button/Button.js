@@ -10,6 +10,7 @@ import ZoomIn from './img/zoom-in-icon.svg';
 import ZoomOut from './img/zoom-out-icon.svg';
 import Play from './img/video-play-icon.svg';
 import Pause from './img/video-pause-icon.svg';
+import withMouseEvents from '../../../hoc/withMouseEvents';
 
 export const ButtonType = {
     MUTE: 'mute',
@@ -70,4 +71,4 @@ Button.propTypes = {
     type: PropTypes.oneOf(Object.values(ButtonType))
 }
 
-export default Button;
+export default withMouseEvents(Button);

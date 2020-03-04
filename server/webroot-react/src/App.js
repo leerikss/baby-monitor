@@ -1,8 +1,8 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import './App.css';
 import { LoginForm } from './components/LoginForm/LoginForm';
 import VideoStream from './components/VideoStream/VideoStream';
-import { AppContext, AppContextActions } from './context/AppContext';
+import { AppContext } from './context/AppContext';
 import Animator from './components/UI/Animator/Animator';
 import Menu from './components/Menu/Menu';
 
@@ -10,7 +10,7 @@ function App() {
 
     const [password, setPassword] = useState(null);
     const [useTurn, setUseTurn] = useState(null);
-    const [state, uiDispatch] = useContext(AppContext);
+    const [state] = useContext(AppContext);
 
     const submitHandler = (pass, useTurn) => {
         setPassword(pass);
@@ -18,23 +18,6 @@ function App() {
     }
 
     const showLoginForm = (password === null);
-
-    const mouseDownHandler = () => {
-        uiDispatch({ type: AppContextActions.MOUSE_DOWN });
-    }
-
-    const mouseUpHandler = () => {
-        uiDispatch({ type: AppContextActions.MOUSE_UP });
-    }
-
-    useEffect(() => {
-        document.addEventListener("mousedown", mouseDownHandler);
-        document.addEventListener("mouseup", mouseUpHandler);
-        return () => {
-            document.removeEventListener("mousedown", mouseDownHandler);
-            document.removeEventListener("mouseup", mouseUpHandler);
-        };
-    });
 
     return (
         <div className="App">
