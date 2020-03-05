@@ -24,3 +24,6 @@ cd /opt/baby-monitor/server
   - Install the websocket-proxy app and adds a websocket-proxy systemd service
   - Installs and configures letsencrypt and nginx
   - Installs and configures the Janus Server
+  - Installs a TURN server (coturn)
+  - Installs and builds the React JS Web UI
+  - 
